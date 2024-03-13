@@ -4,11 +4,13 @@ public class Grid {
     private Space[][] board;
     private Player player;
     private Scanner scanner;
+    boolean testGameFinish;
 
     public Grid() {
         scanner = new Scanner(System.in);
         createPlayer();
         setupBoard();
+        testGameFinish = false; // BOOLEAN TO SATISFY WHILE LOOP SO WE CAN DECIDE ON THE GAME'S GOAL
         play();
     }
 
@@ -38,6 +40,43 @@ public class Grid {
     }
 
     private void play() {
-        printBoard();
+
+        int currentRow = 10;
+        int currentCol = 10;
+
+        while (!testGameFinish) {
+            int newRow = currentRow;
+            int newCol = currentCol;
+            printBoard();
+            System.out.print("Enter a direction (W, A, S, D): ");
+            String direction = scanner.nextLine().toUpperCase();
+
+            boolean isValidMove = true;
+
+            if (direction.equals("W") && currentRow > 0) {
+                newRow = currentRow - 1;
+            } else if (direction.equals("A") && currentCol > 0) {
+                newCol = currentCol - 1;
+            } else if (direction.equals("S") && currentRow < board.length - 1) {
+                newRow = currentRow + 1;
+            } else if (direction.equals("D") && currentCol < board[0].length - 1) {
+                newCol = currentCol + 1;
+            } else {
+                System.out.println("Invalid move. Try again.");
+                isValidMove = false;
+            }
+
+            if (isValidMove) {
+                Space temp = board[newRow][newCol];
+                board[newRow][newCol] = board[currentRow][currentCol];
+                board[currentRow][currentCol] = temp;
+
+                currentRow = newRow;
+                currentCol = newCol;
+
+            } else {
+                System.out.println("Out of bounds. Try again.");
+            }
+        }
     }
 }
