@@ -43,6 +43,7 @@ public class Grid {
         board[10][0] = new Monster("C","Chaser", 2000, 20);
         board[10][20] = new Monster("M","Maestro", 1500, 30);
         board[20][10] = new Monster("D","Davy Jones", 1000, 10);
+        board[10][11] = new Shop();
 
 
 
