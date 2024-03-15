@@ -12,8 +12,6 @@ public class Grid {
         scanner = new Scanner(System.in);
         createPlayer();
         setupBoard();
-        inventory = new ArrayList<>();
-        inventory.add(new Item("Base Sword", 10));
         testGameFinish = false; // BOOLEAN TO SATISFY WHILE LOOP SO WE CAN DECIDE ON THE GAME'S GOAL
         play();
     }

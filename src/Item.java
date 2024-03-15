@@ -9,4 +9,8 @@ public class Item {
     public int getAtk() {
         return atk;
     }
+
+    public String getName() {
+        return name;
+    }
 }

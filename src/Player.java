@@ -1,19 +1,24 @@
 // push pls
 
+import java.util.ArrayList;
+
 public class Player extends Space {
     private String name;
     private int health;
-    private Item item;
+    private ArrayList<Item> inventory;
     public Player(String name) {
         super(name.substring(0, 1).toUpperCase()); // symbol is first initial
         this.name = name;
+        inventory = new ArrayList<>();
+        inventory.add(new Item("Base Sword", 10));
+        health = 100;
     }
     public int getHealth() {
         return health;
     }
 
     public int attack() {
-        double damage = item.getAtk();
+        double damage = inventory.get(0).getAtk();
         damage *= (Math.random() + 0.5);
         return (int) damage;
     }
