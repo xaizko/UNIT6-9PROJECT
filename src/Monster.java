@@ -10,6 +10,8 @@ public class Monster extends Space{
         this.atk = atk;
     }
 
+
+
     public String getName() {
         return name;
     }
@@ -20,5 +22,14 @@ public class Monster extends Space{
 
     public int getAtk() {
         return atk;
+    }
+    public int attack() {
+        double damage = atk;
+        damage *= (Math.random() + 0.2);
+        return (int) damage;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
     }
 }
