@@ -34,6 +34,7 @@ public class Grid {
         board[20][10] = new Monster("D","Davy Jones", 1000, 10);
 
 
+
     }
 
     private void printBoard() {
