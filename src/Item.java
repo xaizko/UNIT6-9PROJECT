@@ -5,4 +5,8 @@ public class Item {
         this.name = name;
         this.atk = atk;
     }
+
+    public int getAtk() {
+        return atk;
+    }
 }

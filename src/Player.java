@@ -1,7 +1,7 @@
 public class Player extends Space {
     private String name;
     private int health;
-    private int atk;
+    private Item item;
 
     public Player(String name) {
         super(name.substring(0, 1).toUpperCase()); // symbol is first initial
@@ -11,18 +11,11 @@ public class Player extends Space {
         return health;
     }
 
-    public int getAtk() {
-        return atk;
-    }
-
     public int attack() {
-        double damage = atk;
-        damage *= (Math.random() + 0.2);
+        double damage = item.getAtk();
+        damage *= (Math.random() + 0.5);
         return (int) damage;
     }
-
-
-
     public boolean fightMonster(Monster monster) {
         int damage;
         int monsterDamage;
@@ -44,6 +37,5 @@ public class Player extends Space {
             System.out.println(name + " has " + health + " health\n");
         }
         return health <= 0;
-
     }
 }
