@@ -24,10 +24,16 @@ public class Grid {
         board = new Space[21][21];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Space("_", new Monster("Space", 0, 0));
+                board[i][j] = new Space("_");
             }
         }
         board[10][10] = player;
+        board[0][10] = new Monster("E","Ethiron", 3000, 25);
+        board[10][0] = new Monster("C","Chaser", 2000, 20);
+        board[10][20] = new Monster("M","Maestro", 1500, 30);
+        board[20][10] = new Monster("D","Davy Jones", 1000, 10);
+
+
     }
 
     private void printBoard() {
