@@ -39,10 +39,10 @@ public class Grid {
 
         //boss spawns
         board[10][10] = player;
-        board[0][10] = new Monster("E","Ethiron", 3000, 25);
-        board[10][0] = new Monster("C","Chaser", 2000, 20);
-        board[10][20] = new Monster("M","Maestro", 1500, 30);
-        board[20][10] = new Monster("D","Davy Jones", 1000, 10);
+        board[0][10] = new Monster("E","Ethiron", 3000, 50);
+        board[10][0] = new Monster("C","Chaser", 2000, 65);
+        board[10][20] = new Monster("M","Maestro", 1500, 80);
+        board[20][10] = new Monster("D","Davy Jones", 1000, 105);
         board[10][11] = new Shop();
 
 
