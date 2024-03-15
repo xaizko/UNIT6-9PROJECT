@@ -1,15 +1,19 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Grid {
     private Space[][] board;
     private Player player;
     private Scanner scanner;
     boolean testGameFinish;
+    private ArrayList<Item> inventory;
 
     public Grid() {
         scanner = new Scanner(System.in);
         createPlayer();
         setupBoard();
+        inventory = new ArrayList<>();
+        inventory.add(new Item("Base Sword", 10));
         testGameFinish = false; // BOOLEAN TO SATISFY WHILE LOOP SO WE CAN DECIDE ON THE GAME'S GOAL
         play();
     }
@@ -27,6 +31,13 @@ public class Grid {
                 board[i][j] = new Space("_");
             }
         }
+
+
+        //random encounters
+
+
+
+        //boss spawns
         board[10][10] = player;
         board[0][10] = new Monster("E","Ethiron", 3000, 25);
         board[10][0] = new Monster("C","Chaser", 2000, 20);
