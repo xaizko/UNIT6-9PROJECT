@@ -1,0 +1,15 @@
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.ColorModel;
+
+public class CreateDialogFromOptionPane {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("frame");
+        frame.setSize(500,500);
+        frame.setVisible(true);
+    }
+}
