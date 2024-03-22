@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Player extends Space {
     private String name;
     private int health;
+    private Shop shop;
+    private int gold;
     private ArrayList<Item> inventory;
     public Player(String name) {
         super("😀"); // symbol is emoji
@@ -12,6 +14,8 @@ public class Player extends Space {
         inventory = new ArrayList<>();
         inventory.add(new Item("Base Sword", 10));
         health = 100;
+        shop = new Shop();
+        gold = 0;
     }
     public int getHealth() {
         return health;
@@ -43,5 +47,9 @@ public class Player extends Space {
             System.out.println(name + " has " + health + " health\n");
         }
         return health <= 0;
+    }
+
+    public void accessShop() {
+        shop.menu(gold);
     }
 }
