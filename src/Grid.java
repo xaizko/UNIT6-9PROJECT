@@ -61,6 +61,7 @@ public class Grid {
         int currentRow = 10;
         int currentCol = 10;
 
+        // PLACE HOLDER CONDITION (maybe, we can just set it to true when goal is met)
         while (!testGameFinish) {
             int newRow = currentRow;
             int newCol = currentCol;
@@ -84,6 +85,12 @@ public class Grid {
             }
 
             if (isValidMove) {
+
+                //shop encounter
+                if (board[newRow][newCol] instanceof Shop) {
+                    player.accessShop();
+                }
+
                 Space temp = board[newRow][newCol];
                 board[newRow][newCol] = board[currentRow][currentCol];
                 board[currentRow][currentCol] = temp;
@@ -94,6 +101,7 @@ public class Grid {
             } else {
                 System.out.println("Out of bounds. Try again.");
             }
+
         }
     }
 }
