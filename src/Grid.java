@@ -57,7 +57,6 @@ public class Grid {
     }
 
     private void play() {
-
         int currentRow = 10;
         int currentCol = 10;
 
@@ -67,6 +66,7 @@ public class Grid {
             printBoard();
             System.out.print("Enter a direction (W, A, S, D): ");
             String direction = scanner.nextLine().toUpperCase();
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
             boolean isValidMove = true;
 
