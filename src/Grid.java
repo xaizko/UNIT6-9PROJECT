@@ -26,7 +26,7 @@ public class Grid {
         board = new Space[21][21];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = new Space("_");
+                board[i][j] = new Space("\uD83D\uDFE6");
             }
         }
 
@@ -37,10 +37,10 @@ public class Grid {
 
         //boss spawns
         board[10][10] = player;
-        board[0][10] = new Monster("E","Ethiron", 3000, 50);
-        board[10][0] = new Monster("C","Chaser", 2000, 65);
-        board[10][20] = new Monster("M","Maestro", 1500, 80);
-        board[20][10] = new Monster("D","Davy Jones", 1000, 105);
+        board[0][10] = new Monster("\uD83D\uDC7B","Ethiron", 3000, 50);
+        board[10][0] = new Monster("\uD83E\uDD9C","Chaser", 2000, 65);
+        board[10][20] = new Monster("\uD83D\uDC19","Maestro", 1500, 80);
+        board[20][10] = new Monster("☠\uFE0F","Davy Jones", 1000, 105);
         board[10][11] = new Shop();
 
 

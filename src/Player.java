@@ -7,7 +7,7 @@ public class Player extends Space {
     private int health;
     private ArrayList<Item> inventory;
     public Player(String name) {
-        super(name.substring(0, 1).toUpperCase()); // symbol is first initial
+        super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
         inventory.add(new Item("Base Sword", 10));
@@ -31,7 +31,7 @@ public class Player extends Space {
             health -= monsterDamage;
             monster.takeDamage(damage);
 
-            System.out.println("Monster takes " + damage + " damage! 🐉");
+            System.out.println("Monster takes " + damage + " damage! \uD83D\uDC79");
             System.out.println(name + " takes " + monsterDamage + " damage! 🩸");
 
             try {
