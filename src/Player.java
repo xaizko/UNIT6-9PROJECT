@@ -8,6 +8,10 @@ public class Player extends Space {
     private Shop shop;
     private int gold;
     private ArrayList<Item> inventory;
+    private boolean EthironDefeated;
+    private boolean ChaserDefeated;
+    private boolean MaestroDefeated;
+    private boolean DavyDefeated;
     public Player(String name) {
         super("😀"); // symbol is emoji
         this.name = name;
