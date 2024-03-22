@@ -1,6 +1,6 @@
-public class BossEncounters extends  Encounters {
+public class BossEncounters extends  MobEncounters {
     String symbol;
-    public BossEncounters(String symbol){
-        super(symbol);
+    public BossEncounters(String name){
+        super(name, 0, 0);
     }
 }

@@ -1,6 +1,5 @@
-public class RandomEncounters extends Encounters{
-    String symbol;
-    public RandomEncounters(String symbol){
-        super(symbol);
+public class RandomEncounters extends MobEncounters{
+    public RandomEncounters(String name){
+        super(name, 0, 0);
     }
 }
