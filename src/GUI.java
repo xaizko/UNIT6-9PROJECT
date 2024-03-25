@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import javax.swing.*;
 
 public class GUI {
     public static void main(String[] args) {
@@ -11,9 +9,9 @@ public class GUI {
         gui.setLayout(null);
         gui.setBackground(Color.CYAN);
 
-        JPanel p = new JPanel();
+        JLabel p = new JLabel(new ImageIcon("src/pirate.png"));
         p.setLayout(null);
-        p.setBounds(450, 450, 50, 50);
+        p.setBounds(450, 450, 61, 50);
         p.setBackground(Color.RED);
         gui.add(p);
 
@@ -37,17 +35,6 @@ public class GUI {
                 }
             }
         });
-
     }
-//    public static void keyPressed(KeyEvent e, JPanel panel) {
-//        if (e.getKeyCode() == (KeyEvent.VK_A)) {
-//            panel.setLocation(panel.getX(), panel.getY() - 50);
-//        } else if (e.getKeyCode() == (KeyEvent.VK_S)) {
-//            panel.setLocation(panel.getX() - 50, panel.getY());
-//        } else if (e.getKeyCode() == (KeyEvent.VK_W)) {
-//            panel.setLocation(panel.getX(), panel.getY() + 50);
-//        } else if (e.getKeyCode() == (KeyEvent.VK_D)) {
-//            panel.setLocation(panel.getX() + 50, panel.getY());
-//        }
-//    }
+
 }
