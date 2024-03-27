@@ -37,10 +37,10 @@ public class Grid {
 
         //boss spawns
         board[10][10] = player;
-        board[0][10] = new Monster("\uD83D\uDC7B","Ethiron", 3000, 50);
-        board[10][0] = new Monster("\uD83E\uDD9C","Chaser", 2000, 65);
-        board[10][20] = new Monster("\uD83D\uDC19","Maestro", 1500, 80);
-        board[20][10] = new Monster("☠\uFE0F","Davy Jones", 1000, 105);
+        board[0][10] = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
+        board[10][0] = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
+        board[10][20] = new Boss("\uD83D\uDC19","Calico Billow - The Swashbuckling Tempest", 1500, 80,3);
+        board[20][10] = new Boss("☠\uFE0F","Davy Jones - The Abyssal Marauder", 1000, 105,4);
         board[10][11] = new Shop();
 
 
