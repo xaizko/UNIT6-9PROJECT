@@ -1,3 +1,7 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -8,7 +12,7 @@ public class Grid {
     boolean testGameFinish;
     private ArrayList<Item> inventory;
 
-    public Grid() {
+    public Grid() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         scanner = new Scanner(System.in);
         createPlayer();
         setupBoard();
@@ -56,12 +60,14 @@ public class Grid {
         }
     }
 
-    private void play() {
+    private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int currentRow = 10;
         int currentCol = 10;
+        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
 
         // PLACE HOLDER CONDITION (maybe, we can just set it to true when goal is met)
         while (!testGameFinish) {
+            mainTheme.playSound();
             int newRow = currentRow;
             int newCol = currentCol;
             printBoard();
