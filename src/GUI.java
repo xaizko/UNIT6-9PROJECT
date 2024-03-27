@@ -8,19 +8,21 @@ public class GUI {
         JPanel gui = new JPanel();
         gui.setLayout(null);
         gui.setBackground(Color.CYAN);
-        makeGUIX(gui,0);
-        makeGUIY(gui,0);
-
+        makeGrid(gui,0);
         JLabel p = new JLabel(new ImageIcon("src/pirate.png"));
         p.setLayout(null);
         p.setBounds(450, 450, 50, 50);
-        p.setBackground(Color.RED);
         gui.add(p);
 
         JLabel shop = new JLabel(new ImageIcon("src/Shop.png"));
         shop.setLayout(null);
         shop.setBounds(500, 450, 50, 50);
         gui.add(shop);
+
+        JLabel enemy = new JLabel(new ImageIcon("src/enemy.png"));
+        enemy.setLayout(null);
+        enemy.setBounds(450, 900, 50, 50);
+        gui.add(enemy);
 
         f.add(gui);
         f.setSize(1000,1000);
@@ -55,21 +57,21 @@ public class GUI {
             }
         });
     }
-    public static int makeGUIX(JPanel gui, int X) {
+    public static int makeGrid(JPanel gui, int X) {
         JPanel line = new JPanel();
         line.setBounds(X, 0, 5, 1000);
         gui.add(line);
         if (X == 1000) {
-            return 0;
-        } return makeGUIX(gui, X + 50);
+            return finishGrid(gui, 0);
+        } return makeGrid(gui, X + 50);
     }
 
-    public static int makeGUIY(JPanel gui, int Y) {
+    public static int finishGrid(JPanel gui, int Y) {
         JPanel line = new JPanel();
         line.setBounds(0, Y, 1000, 5);
         gui.add(line);
         if (Y == 1000) {
             return 0;
-        } return makeGUIY(gui,Y + 50);
+        } return finishGrid(gui,Y + 50);
     }
 }
