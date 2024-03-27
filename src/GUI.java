@@ -19,7 +19,7 @@ public class GUI {
         shop.setBounds(500, 450, 50, 50);
         gui.add(shop);
 
-        JLabel enemy = new JLabel(new ImageIcon("src/enemy.png"));
+        JLabel enemy = new JLabel(new ImageIcon("src/skeleton.png"));
         enemy.setLayout(null);
         enemy.setBounds(450, 900, 50, 50);
         gui.add(enemy);
@@ -59,6 +59,7 @@ public class GUI {
     }
     public static int makeGrid(JPanel gui, int X) {
         JPanel line = new JPanel();
+        line.setBackground(Color.LIGHT_GRAY);
         line.setBounds(X, 0, 5, 1000);
         gui.add(line);
         if (X == 1000) {
@@ -68,6 +69,7 @@ public class GUI {
 
     public static int finishGrid(JPanel gui, int Y) {
         JPanel line = new JPanel();
+        line.setBackground(Color.LIGHT_GRAY);
         line.setBounds(0, Y, 1000, 5);
         gui.add(line);
         if (Y == 1000) {
