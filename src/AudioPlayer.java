@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-//Written by Justin, No consent given to share code with anyone outside of my group.
+    //Written by Justin, No consent given to share code with anyone outside of my group.
     //Papa sta rubando il mio code, e non ti chiede consenti per usa. Vaffanculo!
     public class AudioPlayer {
     String sound;
@@ -32,9 +32,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
         paused = true;
     }
     public void resume() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        if(!paused){
+        if(paused){
             getTime();
-            playSound();
+            clip.start();
             paused = false;
         }
     }
