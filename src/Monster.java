@@ -9,9 +9,6 @@ public class Monster extends Space{
         this.health = health;
         this.atk = atk;
     }
-
-
-
     public String getName() {
         return name;
     }
