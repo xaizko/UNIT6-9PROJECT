@@ -39,7 +39,7 @@ public class Player extends Space {
             health -= monsterDamage;
             monster.takeDamage(damage);
 
-            System.out.println("Monster takes " + damage + " damage! \uD83D\uDC79");
+            System.out.println(monster.getName() + " takes " + damage + " damage! \uD83D\uDC79");
             System.out.println(name + " takes " + monsterDamage + " damage! 🩸");
 
             try {
