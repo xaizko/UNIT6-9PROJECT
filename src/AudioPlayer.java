@@ -6,7 +6,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-public class AudioPlayer {
+
+//Written by Justin, No consent given to share code with anyone outside of my group.
+    //Papa sta rubando il mio code, e non ti chiede consenti per usa. Vaffanculo!
+    public class AudioPlayer {
     String sound;
     Clip clip;
     AudioInputStream audioStream;
@@ -22,7 +25,6 @@ public class AudioPlayer {
         clip.start();
         clip.open(audioStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
-
     }
     public void pause(){
         getTime();
