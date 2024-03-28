@@ -79,8 +79,10 @@ public class Grid {
 
             if (direction.equals("W") && currentRow > 0) {
                 newRow = currentRow - 1;
+                mainTheme.pause();
             } else if (direction.equals("A") && currentCol > 0) {
                 newCol = currentCol - 1;
+                mainTheme.resume();
             } else if (direction.equals("S") && currentRow < board.length - 1) {
                 newRow = currentRow + 1;
             } else if (direction.equals("D") && currentCol < board[0].length - 1) {

@@ -8,18 +8,34 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 public class AudioPlayer {
     String sound;
-    public AudioPlayer(String sound) {
+    Clip clip;
+    AudioInputStream audioStream;
+    File file;
+    boolean paused = false;
+    public AudioPlayer(String sound) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         this.sound = sound;
+        file = new File(sound);
+        audioStream = AudioSystem.getAudioInputStream(file);
+        clip = AudioSystem.getClip();
     }
     public void playSound() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        File file = new File(sound);
-        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-        Clip clip = AudioSystem.getClip();
+        clip.start();
         clip.open(audioStream);
-
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     public void pause(){
-        System.out.println("");
+        getTime();
+        clip.stop();
+        paused = true;
+    }
+    public void resume() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        if(!paused){
+            getTime();
+            playSound();
+            paused = false;
+        }
+    }
+    public long getTime(){
+        return clip.getMicrosecondPosition();
     }
 }
