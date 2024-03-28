@@ -1,6 +1,8 @@
 // push pls
 
+import javax.swing.text.Utilities;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player extends Space {
     private String name;
@@ -8,6 +10,8 @@ public class Player extends Space {
     private Shop shop;
     private int gold;
     private ArrayList<Item> inventory;
+    private Scanner scan;
+    private boolean inFight;
     private boolean EthironDefeated;
     private boolean ChaserDefeated;
     private boolean MaestroDefeated;
@@ -17,6 +21,8 @@ public class Player extends Space {
         this.name = name;
         inventory = new ArrayList<>();
         inventory.add(new Item("Base Sword", 10));
+        scan = new Scanner(System.in);
+        inFight = false;
         health = 100;
         shop = new Shop();
         gold = 0;
@@ -30,10 +36,21 @@ public class Player extends Space {
         damage *= (Math.random() + 0.5);
         return (int) damage;
     }
-    public boolean fightMonster(Monster monster) {
-        int damage;
-        int monsterDamage;
-        while (health > 0 && monster.getHealth() > 0) {
+    public void fightMonster(Monster monster) {
+        inFight = true;
+        while (inFight) {
+            fightMenu(monster);
+        }
+    }
+
+    public void fightMenu(Monster monster) {
+        System.out.println("1) attack");
+        System.out.println("2) switch item");
+        System.out.println("3) run");
+        String choice = scan.nextLine();
+        if (choice.equals("1")) {
+            int damage;
+            int monsterDamage;
             damage = attack();
             monsterDamage = monster.attack();
             health -= monsterDamage;
@@ -47,10 +64,23 @@ public class Player extends Space {
             } catch (Exception e) {
                 System.out.println("error");
             }
-            System.out.println("Dragon has " + monster.getHealth() + " health");
+            System.out.println(monster.getName() + " has " + monster.getHealth() + " health");
             System.out.println(name + " has " + health + " health\n");
+
+        } else if (choice.equals("2")) {
+            for (int i = 0; i < inventory.size(); i++) {
+                System.out.println(i + " " + inventory.get(i));
+            }
+            int itemChoice = scan.nextInt();
+            inventory.add(0, inventory.remove(itemChoice));
+
+        } else if (choice.equals("3")) {
+            System.out.println("coward");
+            inFight = false;
+        } else {
+            System.out.println("error");
+            fightMenu(monster);
         }
-        return health <= 0;
     }
 
     public void accessShop() {
