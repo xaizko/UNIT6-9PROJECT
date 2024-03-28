@@ -64,10 +64,9 @@ public class Grid {
         int currentRow = 10;
         int currentCol = 10;
         AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
-
+        mainTheme.playSound();
         // PLACE HOLDER CONDITION (maybe, we can just set it to true when goal is met)
         while (!testGameFinish) {
-            mainTheme.playSound();
             int newRow = currentRow;
             int newCol = currentCol;
             printBoard();

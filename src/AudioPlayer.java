@@ -22,6 +22,7 @@ public class AudioPlayer {
         clip.start();
         clip.open(audioStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
+
     }
     public void pause(){
         getTime();
