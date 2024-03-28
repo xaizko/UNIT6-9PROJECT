@@ -21,7 +21,6 @@ public class Shop extends Space {
     private static final int WOODEN_PEG_COST = 500;
     private static final int PARROT_COST = 2000;
     private static final int EYE_PATCH_COST = 250;
-
     public Shop() {
         super("\uD83D\uDED2");
     }

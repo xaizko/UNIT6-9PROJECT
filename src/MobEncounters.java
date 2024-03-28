@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobEncounters extends Monster{
+public class MobEncounters extends Monster {
     private String[] names;
 
     public MobEncounters(String name, int health, int atk) {

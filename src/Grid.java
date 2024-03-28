@@ -1,5 +1,6 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Grid {
     private Scanner scanner;
     boolean testGameFinish;
     private ArrayList<Item> inventory;
-
+    private GUI frame;
     public Grid() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         scanner = new Scanner(System.in);
         createPlayer();
