@@ -12,6 +12,10 @@ public class Grid {
     private Scanner scanner;
     boolean testGameFinish;
     private ArrayList<Item> inventory;
+    private Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
+    private Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
+    private Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
+    private Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
     private GUI frame;
     public Grid() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         scanner = new Scanner(System.in);
@@ -35,20 +39,15 @@ public class Grid {
             }
         }
 
-
         //random encounters
-
-
 
         //boss spawns
         board[10][10] = player;
-        board[0][10] = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
-        board[10][0] = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
-        board[10][20] = new Boss("\uD83D\uDC19","Calico Billow - The Swashbuckling Tempest", 1500, 80,3);
-        board[20][10] = new Boss("☠\uFE0F","Davy Jones - The Abyssal Marauder", 1000, 105,4);
+        board[0][10]  = ethiron;
+        board[10][0] = cthyllus;
+        board[10][20] = daveyJones;
+        board[20][10] = matPat;
         board[10][11] = new Shop();
-
-
 
     }
 
@@ -79,14 +78,16 @@ public class Grid {
 
             if (direction.equals("W") && currentRow > 0) {
                 newRow = currentRow - 1;
-                mainTheme.pause();
+                ethiron.playMusic();
             } else if (direction.equals("A") && currentCol > 0) {
                 newCol = currentCol - 1;
-                mainTheme.resume();
+                cthyllus.playMusic();
             } else if (direction.equals("S") && currentRow < board.length - 1) {
                 newRow = currentRow + 1;
+                daveyJones.playMusic();
             } else if (direction.equals("D") && currentCol < board[0].length - 1) {
                 newCol = currentCol + 1;
+                matPat.playMusic();
             } else {
                 System.out.println("Invalid move. Try again.");
                 isValidMove = false;

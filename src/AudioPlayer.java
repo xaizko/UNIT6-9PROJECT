@@ -41,4 +41,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
     public long getTime(){
         return clip.getMicrosecondPosition();
     }
+    public void check(){
+
+    }
 }
