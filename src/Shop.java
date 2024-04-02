@@ -1,5 +1,7 @@
 // PLACE FOR PLAYER TO BUY BETTER GEAR WIP
 
+import java.util.Scanner;
+
 public class Shop extends Space {
     private static final Item LIFE_CRYSTAL = new Item("Life Crystal", null, 50, 20);
     private static final Item KATANA = new Item("Katana", 25, null, 100);
@@ -21,37 +23,29 @@ public class Shop extends Space {
     private static final int WOODEN_PEG_COST = 500;
     private static final int PARROT_COST = 2000;
     private static final int EYE_PATCH_COST = 250;
+
+    private Item[] catalog = {LIFE_CRYSTAL, KATANA, RAILBLADE, CRYPT_BLADE, SHATTERED_KATANA, BlOODTIDE_TRIDENT,
+            STORMSEYE, SHOVEL};
     public Shop() {
         super("\uD83D\uDED2");
     }
 
-    public void menu(int goldAvailable) {
-        printShop();
+    public void menu() {
+        System.out.println(printShop());
+
+
+
     }
 
     public String printShop() {
         String str = "Weapons:\n";
-        str += "Shotel: " + SHOVEL.getCost() + " gold\n";
-        str += "Katana: " + KATANA.getCost() + " gold\n";
-        str += "Shattered Katana: " + SHATTERED_KATANA.getCost() + " gold\n";
-        str += "Bloodtide Trident: " + BlOODTIDE_TRIDENT.getCost() + " gold\n";
-        str += "Railblade: " + RAILBLADE.getCost() + " gold\n";
-        str += "Stormseye: " + STORMSEYE.getCost() + " gold\n";
-        str += "Crypt Blade: " + CRYPT_BLADE.getCost() + " gold\n";
-        str += "\nArmor:\n";
-        str += "Leather armor: " + LEATHER_ARMOR_COST + "gold\n";
-        str += "Iron armor: " + IRON_ARMOR_COST + "gold\n";
-        str += "Pirate Coat: " + PIRATE_COAT_COST + "gold\n";
-        str += "Shark Skin armor: " + SHARK_SKIN_COST + "gold\n";
-        str += "Kraken Skin armor: " + KRAKEN_SKIN_COST + "gold\n";
-        str += "\nAccessories:\n";
-        str += "Pirate Hat: " + PIRATE_HAT_COST + "gold\n";
-        str += "Eye Patch: " + EYE_PATCH_COST + "gold\n";
-        str += "Wooden Peg: " + WOODEN_PEG_COST + "gold\n";
-        str += "Iron Hook: " + IRON_HOOK_COST + "gold\n";
-        str += "Parrot Pet: " + PARROT_COST + "gold\n";
-
-
+        for (int i = 0; i < catalog.length; i++) {
+            str += i + ") " + catalog[i].getName() + ": " + catalog[i].getCost() + "gold\n";
+        }
         return str;
+    }
+
+    public Item[] getCatalog() {
+        return catalog;
     }
 }

@@ -90,6 +90,18 @@ public class Player extends Space {
     }
 
     public void accessShop() {
-        shop.menu(gold);
+        shop.menu();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("what do you wanna buy?");
+        buy(shop.getCatalog()[scan.nextInt()]);
+    }
+
+    public boolean buy(Item item) {
+        if (gold > item.getCost()) {
+            gold -= item.getCost();
+            inventory.add(item);
+            return true;
+        }
+        return false;
     }
 }
