@@ -25,6 +25,7 @@ public class GridGui {
     public GridGui() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
         field = new JFrame("Sea");
         field.setSize(1000,1000);
+        field.setLayout(null);
         frame = new GUI();
         scanner = new Scanner(System.in);
         createPlayer();
