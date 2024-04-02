@@ -105,6 +105,9 @@ public class Grid {
                     player.fightMenu(currentBoss);
                 }
 
+                if (board[newRow][newCol] instanceof Monster) {
+                    player.fightMonster((Monster) board[newRow][newCol]);
+                }
                 Space temp = board[newRow][newCol];
                 board[newRow][newCol] = board[currentRow][currentCol];
                 board[currentRow][currentCol] = temp;

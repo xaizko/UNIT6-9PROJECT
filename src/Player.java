@@ -20,7 +20,7 @@ public class Player extends Space {
         super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
-        inventory.add(new Item("Base Sword", 10));
+        inventory.add(new Item("Base Sword", 10, null, 10));
         scan = new Scanner(System.in);
         inFight = false;
         health = 100;
@@ -66,6 +66,12 @@ public class Player extends Space {
             }
             System.out.println(monster.getName() + " has " + monster.getHealth() + " health");
             System.out.println(name + " has " + health + " health\n");
+
+            if (health < 0) {
+                health = 1;
+                inFight = false;
+                System.out.println("YOU LOST!!!!!!!!!!!!!!!!!!!!!");
+            }
 
         } else if (choice.equals("2")) {
             for (int i = 0; i < inventory.size(); i++) {
