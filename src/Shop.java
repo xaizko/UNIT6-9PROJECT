@@ -1,14 +1,14 @@
 // PLACE FOR PLAYER TO BUY BETTER GEAR WIP
 
 public class Shop extends Space {
-    private static final int LIFE_CRYSTAL = 20;
-    private static final int KATANA_COST = 100;
-    private static final int RAILBLADE_COST = 3000;
-    private static final int CRYPT_BLADE_COST = 10000;
-    private static final int SHATTERED_KATANA = 500;
-    private static final int BlOODTIDE_TRIDENT_COST = 1000;
-    private static final int STORMSEYE_COST = 5000;
-    private static final int SHOTEL_COST = 50;
+    private static final Item LIFE_CRYSTAL = new Item("Life Crystal", null, 50, 20);
+    private static final Item KATANA = new Item("Katana", 25, null, 100);
+    private static final Item RAILBLADE = new Item("Railblade",200 , null, 3000);
+    private static final Item CRYPT_BLADE = new Item("Crypt Blade",500 , null, 10000);
+    private static final Item SHATTERED_KATANA = new Item("Shattered Katana", 70, null, 500);
+    private static final Item BlOODTIDE_TRIDENT = new Item("Bloodtide Trident",120 , null, 1000);
+    private static final Item STORMSEYE = new Item("Stormseye", 300, null, 5000);
+    private static final Item SHOVEL = new Item("Shovel", 15, null, 50);
 
     //ARMOR + ACCESSORIES TO HEALTH INCREASE
     private static final int LEATHER_ARMOR_COST = 100;
@@ -31,13 +31,13 @@ public class Shop extends Space {
 
     public String printShop() {
         String str = "Weapons:\n";
-        str += "Shotel: " + SHOTEL_COST + " gold\n";
-        str += "Katana: " + KATANA_COST + " gold\n";
-        str += "Shattered Katana: " + SHATTERED_KATANA + " gold\n";
-        str += "Bloodtide Trident: " + BlOODTIDE_TRIDENT_COST + " gold\n";
-        str += "Railblade: " + RAILBLADE_COST + " gold\n";
-        str += "Stormseye: " + STORMSEYE_COST + " gold\n";
-        str += "Crypt Blade: " + CRYPT_BLADE_COST + " gold\n";
+        str += "Shotel: " + SHOVEL.getCost() + " gold\n";
+        str += "Katana: " + KATANA.getCost() + " gold\n";
+        str += "Shattered Katana: " + SHATTERED_KATANA.getCost() + " gold\n";
+        str += "Bloodtide Trident: " + BlOODTIDE_TRIDENT.getCost() + " gold\n";
+        str += "Railblade: " + RAILBLADE.getCost() + " gold\n";
+        str += "Stormseye: " + STORMSEYE.getCost() + " gold\n";
+        str += "Crypt Blade: " + CRYPT_BLADE.getCost() + " gold\n";
         str += "\nArmor:\n";
         str += "Leather armor: " + LEATHER_ARMOR_COST + "gold\n";
         str += "Iron armor: " + IRON_ARMOR_COST + "gold\n";

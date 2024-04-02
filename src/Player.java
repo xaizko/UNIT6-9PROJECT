@@ -20,7 +20,7 @@ public class Player extends Space {
         super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
-        inventory.add(new Item("Base Sword", 10));
+        inventory.add(new Item("Base Sword", 10, null, 10));
         scan = new Scanner(System.in);
         inFight = false;
         health = 100;
