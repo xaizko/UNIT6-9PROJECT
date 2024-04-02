@@ -9,12 +9,13 @@ public class Boss extends Monster {
         super(symbol,name,health,atk);
         this.type = type;
     }
-    public void meetEncounter() {
+    public void encounterBoss() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         System.out.println("You have encountered "  + getName());
+        playMusic();
     }
     public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(type == 1){
-            audioPlayer = new AudioPlayer("scion of ethiron theme extended (old).wav");
+            audioPlayer = new AudioPlayer("Undertale - Megalovania.wav");
             audioPlayer.playSound();
         }else if(type == 2){
             audioPlayer = new AudioPlayer("If You Need The Most Epic Dark Boss Theme, Check This • ＂CTHULHU AWAKENS＂ by Apollon de Moura.wav");
