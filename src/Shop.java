@@ -26,7 +26,7 @@ public class Shop extends Space {
     }
 
     public void menu(int goldAvailable) {
-
+        printShop();
     }
 
     public String printShop() {
