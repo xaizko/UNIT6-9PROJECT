@@ -67,6 +67,12 @@ public class Player extends Space {
             System.out.println(monster.getName() + " has " + monster.getHealth() + " health");
             System.out.println(name + " has " + health + " health\n");
 
+            if (health < 0) {
+                health = 1;
+                inFight = false;
+                System.out.println("YOU LOST!!!!!!!!!!!!!!!!!!!!!");
+            }
+
         } else if (choice.equals("2")) {
             for (int i = 0; i < inventory.size(); i++) {
                 System.out.println(i + " " + inventory.get(i));
