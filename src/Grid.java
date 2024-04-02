@@ -78,16 +78,16 @@ public class Grid {
 
             if (direction.equals("W") && currentRow > 0) {
                 newRow = currentRow - 1;
-                ethiron.playMusic();
+                //ethiron.playMusic();
             } else if (direction.equals("A") && currentCol > 0) {
                 newCol = currentCol - 1;
-                cthyllus.playMusic();
+                //cthyllus.playMusic();
             } else if (direction.equals("S") && currentRow < board.length - 1) {
                 newRow = currentRow + 1;
-                daveyJones.playMusic();
+                //daveyJones.playMusic();
             } else if (direction.equals("D") && currentCol < board[0].length - 1) {
                 newCol = currentCol + 1;
-                matPat.playMusic();
+                //matPat.playMusic();
             } else {
                 System.out.println("Invalid move. Try again.");
                 isValidMove = false;
@@ -98,6 +98,11 @@ public class Grid {
                 //shop encounter
                 if (board[newRow][newCol] instanceof Shop) {
                     player.accessShop();
+                }
+                if(board[newRow][newCol] instanceof Boss){
+                    Boss currentBoss = (Boss) board[newRow][newCol];
+                    currentBoss.encounterBoss();
+                    player.fightMenu(currentBoss);
                 }
 
                 Space temp = board[newRow][newCol];
