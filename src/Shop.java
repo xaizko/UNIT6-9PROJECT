@@ -38,7 +38,19 @@ public class Shop extends Space {
         str += "Railblade: " + RAILBLADE_COST + " gold\n";
         str += "Stormseye: " + STORMSEYE_COST + " gold\n";
         str += "Crypt Blade: " + CRYPT_BLADE_COST + " gold\n";
+        str += "\nArmor:\n";
+        str += "Leather armor: " + LEATHER_ARMOR_COST + "gold\n";
+        str += "Iron armor: " + IRON_ARMOR_COST + "gold\n";
+        str += "Pirate Coat: " + PIRATE_COAT_COST + "gold\n";
+        str += "Shark Skin armor: " + SHARK_SKIN_COST + "gold\n";
+        str += "Kraken Skin armor: " + KRAKEN_SKIN_COST + "gold\n";
         str += "\nAccessories:\n";
+        str += "Pirate Hat: " + PIRATE_HAT_COST + "gold\n";
+        str += "Eye Patch: " + EYE_PATCH_COST + "gold\n";
+        str += "Wooden Peg: " + WOODEN_PEG_COST + "gold\n";
+        str += "Iron Hook: " + IRON_HOOK_COST + "gold\n";
+        str += "Parrot Pet: " + PARROT_COST + "gold\n";
+
 
         return str;
     }
