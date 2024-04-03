@@ -2,16 +2,24 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
-public class Boss extends Monster {
+public class Boss extends MobEncounters {
     private int type;
     AudioPlayer audioPlayer;
+    String symbol;
     public Boss(String symbol, String name, int health, int atk,int type){
-        super(symbol,name,health,atk);
+        super(name,health,atk);
+        this.symbol = symbol;
         this.type = type;
     }
-    public void encounterBoss() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
+    @Override
+    public void meetEncounter() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         System.out.println("You have encountered "  + getName());
-        playMusic();
+        while(getHealth() > 0){
+            playMusic();
+        }
+
+
     }
     public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(type == 1){
