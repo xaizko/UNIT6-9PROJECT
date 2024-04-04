@@ -38,4 +38,8 @@ public class Boss extends MobEncounters {
             audioPlayer = new AudioPlayer("Two Steps from Hell - Heart of Courage.wav");
         }
     }
+
+    public void encounterBoss() {
+
+    }
 }

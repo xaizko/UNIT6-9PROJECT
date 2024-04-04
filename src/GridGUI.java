@@ -2,6 +2,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,32 +18,63 @@ public class GridGUI {
     private Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
     private Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
-    public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
         frame = new JFrame("Pirate Cove");
         frame.setSize(1000,1000);
         sea = new JPanel();
-        sea.setLayout(null);
-        sea.setSize(1000,1000);
-        sea.setBackground(Color.CYAN);
         player = new JLabel(new ImageIcon("src/pirate.png"));
-        player.setBounds(450,450,50,50);
-        makeGrid(sea, 0);
-        sea.add(player);
-        frame.add(sea);
-        frame.setVisible(true);
         testGameFinish = false; // BOOLEAN TO SATISFY WHILE LOOP SO WE CAN DECIDE ON THE GAME'S GOAL
         play();
     }
 
-    private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        int currentRow = 10;
-        int currentCol = 10;
+    private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
+
         AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
         mainTheme.playSound();
-        // PLACE HOLDER CONDITION (maybe, we can just set it to true when goal is met)
-        while (!testGameFinish) {
+        sea.setLayout(null);
+        sea.setSize(1000,1000);
+        sea.setBackground(Color.CYAN);
+        player.setBounds(450,450,50,50);
+        makeGrid(sea, 0);
+        sea.add(player);
+        frame.setLayout(null);
+        frame.setSize(1000,1000);
+        frame.add(sea);
+        frame.setVisible(true);
 
-        }
+        // PLACEHOLDER CONDITION (maybe, we can just set it to true when goal is met)
+//        if (!testGameFinish) {
+//            Thread.sleep(50);
+            frame.addKeyListener(new KeyAdapter() {
+                public void keyPressed(KeyEvent e) {
+                    int keyCode = e.getKeyCode();
+                    if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+                        player.setLocation(player.getX(), player.getY() - 50);
+                    }
+                    else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+                        player.setLocation(player.getX(), player.getY() + 50);
+                    }
+                    else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+                        player.setLocation(player.getX() - 50, player.getY());
+                    }
+                    else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
+                        player.setLocation(player.getX() + 50, player.getY());
+                    }
+                    if (player.getX() <  -50) {
+                        player.setLocation(1050, player.getY());
+                    }
+                    if (player.getX() >  1050) {
+                        player.setLocation(-50, player.getY());
+                    }
+                    if (player.getY() <  -50) {
+                        player.setLocation(player.getX(), 1050);
+                    }
+                    if (player.getY() >  1050) {
+                        player.setLocation(player.getX(), -50);
+                    }
+                }
+            });
+//        }
     }
 
     public static int makeGrid(JPanel gui, int X) {

@@ -27,7 +27,6 @@ public class GUIMain {
         f.setSize(1000,1000);
         f.setVisible(true);
         Thread.sleep(2000);
-        f.setVisible(false);
         JFrame s = new JFrame("Shop");
         s.setSize(1000,1000);
 //        s.setVisible(true);
@@ -62,6 +61,7 @@ public class GUIMain {
                 if (p.getY() >  1050) {
                     p.setLocation(p.getX(), -50);
                 }
+
             }
         });
     }
