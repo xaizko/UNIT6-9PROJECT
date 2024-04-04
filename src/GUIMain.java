@@ -30,7 +30,11 @@ public class GUIMain {
         f.setVisible(false);
         JFrame s = new JFrame("Shop");
         s.setSize(1000,1000);
-        s.setVisible(true);
+//        s.setVisible(true);
+
+        JFrame b = new JFrame("Battle");
+        b.setSize(1000,1000);
+
         f.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
