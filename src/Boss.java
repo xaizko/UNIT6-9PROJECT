@@ -15,7 +15,7 @@ public class Boss extends MobEncounters {
     @Override
     public void meetEncounter() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         System.out.println("You have encountered "  + getName());
-        while(getHealth() > 0){
+        while(getHealth() > 0) {
             playMusic();
         }
 

@@ -10,72 +10,98 @@ import java.util.ArrayList;
 
 public class GridGUI {
     private JLabel player;
+    private JLabel coin;
     private JFrame frame;
+    private JPanel mobFight;
+    private JPanel bossFight;
     private JPanel sea;
-    boolean testGameFinish;
+    private JPanel shop;
+    private JButton button;
     private ArrayList<Item> inventory;
-    private Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
-    private Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
-    private Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
-    private Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
+    private AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
+    private final Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
+    private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
+    private final Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
+    private final Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
     public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
-        frame = new JFrame("Pirate Cove");
-        frame.setSize(1000,1000);
-        sea = new JPanel();
         player = new JLabel(new ImageIcon("src/pirate.png"));
-        testGameFinish = false; // BOOLEAN TO SATISFY WHILE LOOP SO WE CAN DECIDE ON THE GAME'S GOAL
+        coin = new JLabel(new ImageIcon("src/shop.png"));
+        frame = new JFrame("Pirate Cove");
+        mobFight = new JPanel();
+        bossFight = new JPanel();
+        sea = new JPanel();
+        shop = new JPanel();
+        button = new JButton();
         play();
     }
 
     private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
-
-        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
-        mainTheme.playSound();
+//        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
+//        mainTheme.playSound();
         sea.setLayout(null);
         sea.setSize(1000,1000);
         sea.setBackground(Color.CYAN);
-        player.setBounds(450,450,50,50);
         makeGrid(sea, 0);
+
+        player.setBounds(450,450,50,50);
+
         sea.add(player);
+
+        button.setBounds(0,0,50,50);
+        button.setVisible(true);
+
+        frame.setSize(1000,1000);
         frame.setLayout(null);
         frame.setSize(1000,1000);
+        frame.add(button);
         frame.add(sea);
-        frame.setVisible(true);
+        frame.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+                    player.setLocation(player.getX(), player.getY() - 50);
+                }
+                else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+                    player.setLocation(player.getX(), player.getY() + 50);
+                }
+                else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+                    player.setLocation(player.getX() - 50, player.getY());
+                }
+                else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
+                    player.setLocation(player.getX() + 50, player.getY());
+                }
+                if (player.getX() <  -50) {
+                    player.setLocation(1050, player.getY());
+                }
+                if (player.getX() >  1050) {
+                    player.setLocation(-50, player.getY());
+                }
+                if (player.getY() <  -50) {
+                    player.setLocation(player.getX(), 1050);
+                }
+                if (player.getY() >  1050) {
+                    player.setLocation(player.getX(), -50);
+                }
+            }
+        });
 
-        // PLACEHOLDER CONDITION (maybe, we can just set it to true when goal is met)
-//        if (!testGameFinish) {
-//            Thread.sleep(50);
-            frame.addKeyListener(new KeyAdapter() {
-                public void keyPressed(KeyEvent e) {
-                    int keyCode = e.getKeyCode();
-                    if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
-                        player.setLocation(player.getX(), player.getY() - 50);
-                    }
-                    else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
-                        player.setLocation(player.getX(), player.getY() + 50);
-                    }
-                    else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
-                        player.setLocation(player.getX() - 50, player.getY());
-                    }
-                    else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
-                        player.setLocation(player.getX() + 50, player.getY());
-                    }
-                    if (player.getX() <  -50) {
-                        player.setLocation(1050, player.getY());
-                    }
-                    if (player.getX() >  1050) {
-                        player.setLocation(-50, player.getY());
-                    }
-                    if (player.getY() <  -50) {
-                        player.setLocation(player.getX(), 1050);
-                    }
-                    if (player.getY() >  1050) {
-                        player.setLocation(player.getX(), -50);
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == button) {
+                    try {
+                        mainTheme.playSound();
+                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-            });
-//        }
+            }
+        });
+
+        frame.setVisible(true);
     }
+
 
     public static int makeGrid(JPanel gui, int X) {
         JPanel line = new JPanel();

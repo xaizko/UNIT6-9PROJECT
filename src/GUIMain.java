@@ -63,6 +63,7 @@ public class GUIMain {
                 }
 
             }
+
         });
     }
     public static int makeGrid(JPanel gui, int X) {
