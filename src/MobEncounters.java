@@ -12,7 +12,7 @@ public class MobEncounters extends Monster {
 
     }
 
-    public void meetEncounter(){
+    public void meetEncounter() { // add music
         System.out.println("You have encountered "+ getName());
     }
     public Monster generateMonster(){
