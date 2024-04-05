@@ -173,4 +173,8 @@ public class Player extends Space {
         }
         return false;
     }
+
+    public int getGold() {
+        return gold;
+    }
 }
