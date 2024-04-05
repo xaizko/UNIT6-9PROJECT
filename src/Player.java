@@ -104,4 +104,8 @@ public class Player extends JPanel {
         }
         return false;
     }
+
+    public int getGold() {
+        return gold;
+    }
 }

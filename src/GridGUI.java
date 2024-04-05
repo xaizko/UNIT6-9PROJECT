@@ -11,13 +11,14 @@ import java.util.ArrayList;
 public class GridGUI {
     private JLabel player;
     private JLabel coin;
+    private JLabel merchant;
     private JFrame frame;
     private JPanel mobFight;
     private JPanel bossFight;
     private JPanel sea;
     private JPanel shop;
-    private JButton button;
     private ArrayList<Item> inventory;
+    private Player attributes;
     private AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
     private final Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
     private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
@@ -26,13 +27,14 @@ public class GridGUI {
     private boolean gameOver;
     public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
         player = new JLabel(new ImageIcon("src/pirate.png"));
-        coin = new JLabel(new ImageIcon("src/Shop.png"));
+        coin = new JLabel(new ImageIcon("src/shop.png"));
+        merchant = new JLabel(new ImageIcon("src/merchant.png"));
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         bossFight = new JPanel();
         sea = new JPanel();
         shop = new JPanel();
-        button = new JButton();
+        attributes = new Player("Traveler");
         gameOver = false;
         play();
     }
@@ -41,12 +43,18 @@ public class GridGUI {
 //        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
 //        mainTheme.playSound();
         listenerInitializer();
+
+        shop.setLayout(null);
+        shop.setSize(1000,1000);
+        shop.setBackground(Color.LIGHT_GRAY);
+
+        merchant.setBounds(100,0,500,500);
+
+        shop.add(merchant);
+
         sea.setLayout(null);
         sea.setSize(1000,1000);
         sea.setBackground(Color.CYAN);
-
-        shop.setSize(1000,1000);
-        shop.setBackground(Color.GREEN);
 
         player.setBounds(450,450,50,50);
 
@@ -59,19 +67,42 @@ public class GridGUI {
         frame.setSize(1000,1000);
         frame.add(sea);
         frame.setVisible(true);
-        int x = 0;
+
         mainTheme.playSound();
-        while (true) {
+        while (!gameOver) {
             Thread.sleep(0);
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
+                player.setLocation(450,450);
+                frame.setVisible(false);
+                frame.remove(sea);
                 buyGear();
+                frame.remove(shop);
+                frame.add(sea);
             }
         }
     }
 
     private void buyGear() {
-        frame.remove(sea);
+        boolean browsing = true;
+        JTextField welcome = new JTextField();
+        welcome.setText("Welcome to the Merchant, what would you like to buy");
+        welcome.setBackground(Color.LIGHT_GRAY);
+        welcome.setBounds(600,200,400,50);
+
+        JTextField balance = new JTextField();
+        balance.setText("You have " + attributes.getGold() + " Gold");
+        balance.setBackground(Color.LIGHT_GRAY);
+        balance.setBounds(600,300,150,50);
+
+        shop.add(balance);
+        shop.add(welcome);
+
+
         frame.add(shop);
+        frame.setVisible(true);
+        while (browsing) {
+
+        }
     }
 
     private void listenerInitializer() {
