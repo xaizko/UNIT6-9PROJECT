@@ -68,7 +68,7 @@ public class GridGUI {
         frame.add(sea);
         frame.setVisible(true);
 
-        mainTheme.playSound();
+//        mainTheme.playSound();
         while (!gameOver) {
             Thread.sleep(0);
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
@@ -82,6 +82,9 @@ public class GridGUI {
         }
     }
 
+    private void initializeShop() {
+
+    }
     private void buyGear() {
         boolean browsing = true;
         JTextField welcome = new JTextField();
@@ -94,9 +97,48 @@ public class GridGUI {
         balance.setBackground(Color.LIGHT_GRAY);
         balance.setBounds(600,300,150,50);
 
+        JButton lifeCrystal = new JButton();
+        lifeCrystal.setBounds(20,400,150,150);
+        lifeCrystal.setText("Life Crystal: 50 Gold");
+
+        JButton katana = new JButton();
+        katana.setBounds(20, 600, 150, 150);
+        katana.setText("Katana: 100 Gold");
+
+        JButton railBlade = new JButton();
+        railBlade.setBounds(200,400,150,150);
+        railBlade.setText("Railblade: 3000 Gold");
+
+        JButton cryptBlade = new JButton();
+        cryptBlade.setBounds(200,600,200,150);
+        cryptBlade.setText("Crypt Blade: 10000 Gold");
+
+        JButton shatteredKatana = new JButton();
+        shatteredKatana.setBounds(380,400,200,150);
+        shatteredKatana.setText("Shattered Katana: 500 Gold");
+
+        JButton bloodtideTrident = new JButton();
+        bloodtideTrident.setBounds(420,600,200,150);
+        bloodtideTrident.setText("Bloodtide Trident: 1000 Gold");
+
+        JButton stormsEye = new JButton();
+        stormsEye.setBounds(610,400,150,150);
+        stormsEye.setText("Stormseye: 5000 Gold");
+
+        JButton shovel = new JButton();
+        shovel.setBounds(650,600,150,150);
+        shovel.setText("Shovel: 50 Gold");
+
         shop.add(balance);
         shop.add(welcome);
-
+        shop.add(lifeCrystal);
+        shop.add(katana);
+        shop.add(railBlade);
+        shop.add(cryptBlade);
+        shop.add(shatteredKatana);
+        shop.add(bloodtideTrident);
+        shop.add(stormsEye);
+        shop.add(shovel);
 
         frame.add(shop);
         frame.setVisible(true);
