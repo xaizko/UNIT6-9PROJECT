@@ -1,3 +1,6 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,7 @@ public class MobEncounters extends Monster {
 
     }
 
-    public void meetEncounter(){
+    public void meetEncounter() throws UnsupportedAudioFileException, LineUnavailableException, IOException { // add music
         System.out.println("You have encountered "+ getName());
     }
     public Monster generateMonster(){
