@@ -43,26 +43,8 @@ public class GridGUI {
 //        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
 //        mainTheme.playSound();
         listenerInitializer();
-
-        shop.setLayout(null);
-        shop.setSize(1000,1000);
-        shop.setBackground(Color.LIGHT_GRAY);
-
-        merchant.setBounds(100,0,500,500);
-
-        shop.add(merchant);
-
-        sea.setLayout(null);
-        sea.setSize(1000,1000);
-        sea.setBackground(Color.CYAN);
-
-        player.setBounds(450,450,50,50);
-
-        coin.setBounds(500,500,50,50);
-
-        makeGrid(sea, 0);
-        sea.add(player);
-        sea.add(coin);
+        initializeShop();
+        initializeSea();
 
         frame.setSize(1000,1000);
         frame.add(sea);
@@ -82,11 +64,29 @@ public class GridGUI {
         }
     }
 
-    private void initializeShop() {
+    private void initializeSea() {
+        shop.setLayout(null);
+        shop.setSize(1000,1000);
+        shop.setBackground(Color.LIGHT_GRAY);
 
+        merchant.setBounds(100,0,500,500);
+
+        shop.add(merchant);
+
+        sea.setLayout(null);
+        sea.setSize(1000,1000);
+        sea.setBackground(Color.CYAN);
+
+        player.setBounds(450,450,50,50);
+
+        coin.setBounds(500,500,50,50);
+
+        makeGrid(sea, 0);
+        sea.add(player);
+        sea.add(coin);
     }
-    private void buyGear() {
-        boolean browsing = true;
+
+    private void initializeShop() {
         JTextField welcome = new JTextField();
         welcome.setText("Welcome to the Merchant, what would you like to buy");
         welcome.setBackground(Color.LIGHT_GRAY);
@@ -99,35 +99,43 @@ public class GridGUI {
 
         JButton lifeCrystal = new JButton();
         lifeCrystal.setBounds(20,400,150,150);
-        lifeCrystal.setText("Life Crystal: 50 Gold");
+        lifeCrystal.setText("1. Life Crystal: 50 G");
+        buttonInitializer(lifeCrystal);
 
         JButton katana = new JButton();
         katana.setBounds(20, 600, 150, 150);
-        katana.setText("Katana: 100 Gold");
+        katana.setText("2. Katana: 100 G");
+        buttonInitializer(katana);
 
         JButton railBlade = new JButton();
         railBlade.setBounds(200,400,150,150);
-        railBlade.setText("Railblade: 3000 Gold");
+        railBlade.setText("3. Railblade: 3000 G");
+        buttonInitializer(railBlade);
 
         JButton cryptBlade = new JButton();
         cryptBlade.setBounds(200,600,200,150);
-        cryptBlade.setText("Crypt Blade: 10000 Gold");
+        cryptBlade.setText("4. Crypt Blade: 10000 G");
+        buttonInitializer(cryptBlade);
 
         JButton shatteredKatana = new JButton();
         shatteredKatana.setBounds(380,400,200,150);
-        shatteredKatana.setText("Shattered Katana: 500 Gold");
+        shatteredKatana.setText("5. Shattered Katana: 500 G");
+        buttonInitializer(shatteredKatana);
 
         JButton bloodtideTrident = new JButton();
         bloodtideTrident.setBounds(420,600,200,150);
-        bloodtideTrident.setText("Bloodtide Trident: 1000 Gold");
+        bloodtideTrident.setText("6. Bloodtide Trident: 1000 G");
+        buttonInitializer(bloodtideTrident);
 
         JButton stormsEye = new JButton();
         stormsEye.setBounds(610,400,200,150);
-        stormsEye.setText("Stormseye: 5000 Gold");
+        stormsEye.setText("7. Stormseye: 5000 G");
+        buttonInitializer(stormsEye);
 
         JButton shovel = new JButton();
         shovel.setBounds(650,600,150,150);
-        shovel.setText("Shovel: 50 Gold");
+        shovel.setText("8. Shovel: 50 G");
+        buttonInitializer(shovel);
 
         shop.add(balance);
         shop.add(welcome);
@@ -139,7 +147,9 @@ public class GridGUI {
         shop.add(bloodtideTrident);
         shop.add(stormsEye);
         shop.add(shovel);
-
+    }
+    private void buyGear() {
+        boolean browsing = true;
         frame.add(shop);
         frame.setVisible(true);
         while (browsing) {
@@ -177,6 +187,15 @@ public class GridGUI {
                 }
             }
         });
+    }
+
+    private void buttonInitializer(JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        } );
     }
     public static int makeGrid(JPanel gui, int X) {
         JPanel line = new JPanel();
