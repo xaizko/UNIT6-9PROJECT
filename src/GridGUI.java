@@ -1,13 +1,13 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-
 public class GridGUI {
     private JLabel player;
     private JLabel coin;
@@ -23,38 +23,58 @@ public class GridGUI {
     private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private final Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
     private final Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
+    private boolean gameOver;
     public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
         player = new JLabel(new ImageIcon("src/pirate.png"));
-        coin = new JLabel(new ImageIcon("src/shop.png"));
+        coin = new JLabel(new ImageIcon("src/Shop.png"));
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         bossFight = new JPanel();
         sea = new JPanel();
         shop = new JPanel();
         button = new JButton();
+        gameOver = false;
         play();
     }
 
     private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
 //        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
 //        mainTheme.playSound();
+        listenerInitializer();
         sea.setLayout(null);
         sea.setSize(1000,1000);
         sea.setBackground(Color.CYAN);
-        makeGrid(sea, 0);
+
+        shop.setSize(1000,1000);
+        shop.setBackground(Color.GREEN);
 
         player.setBounds(450,450,50,50);
 
+        coin.setBounds(500,500,50,50);
+
+        makeGrid(sea, 0);
         sea.add(player);
-
-        button.setBounds(0,0,50,50);
-        button.setVisible(true);
+        sea.add(coin);
 
         frame.setSize(1000,1000);
-        frame.setLayout(null);
-        frame.setSize(1000,1000);
-        frame.add(button);
         frame.add(sea);
+        frame.setVisible(true);
+        int x = 0;
+        mainTheme.playSound();
+        while (true) {
+            Thread.sleep(0);
+            if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
+                buyGear();
+            }
+        }
+    }
+
+    private void buyGear() {
+        frame.remove(sea);
+        frame.add(shop);
+    }
+
+    private void listenerInitializer() {
         frame.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
@@ -84,25 +104,7 @@ public class GridGUI {
                 }
             }
         });
-
-
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (actionEvent.getSource() == button) {
-                    try {
-                        mainTheme.playSound();
-                    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
-
-        frame.setVisible(true);
     }
-
-
     public static int makeGrid(JPanel gui, int X) {
         JPanel line = new JPanel();
         line.setBackground(Color.LIGHT_GRAY);

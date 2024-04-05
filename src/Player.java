@@ -1,10 +1,11 @@
 // push pls
 
+import javax.swing.*;
 import javax.swing.text.Utilities;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Player extends Space {
+public class Player extends JPanel {
     private String name;
     private int health;
     private Shop shop;
@@ -17,7 +18,6 @@ public class Player extends Space {
     private boolean MaestroDefeated;
     private boolean DavyDefeated;
     public Player(String name) {
-        super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
         inventory.add(new Item("Base Sword", 10, null, 10));
