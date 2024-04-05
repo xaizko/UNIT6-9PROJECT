@@ -12,6 +12,9 @@ public class Boss extends Monster {
     public void encounterBoss() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         System.out.println("You have encountered "  + getName());
         playMusic();
+        if(isDead()){
+            pause();
+        }
     }
     public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(type == 1){
@@ -28,6 +31,12 @@ public class Boss extends Monster {
             audioPlayer.playSound();
         }else{
             audioPlayer = new AudioPlayer("Two Steps from Hell - Heart of Courage.wav");
+        }
+    }
+
+    public void pause() {
+        if(audioPlayer != null) {
+            audioPlayer.stop();
         }
     }
 }

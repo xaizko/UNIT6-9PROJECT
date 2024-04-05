@@ -12,7 +12,8 @@ public class Grid {
     private Scanner scanner;
     boolean testGameFinish;
     private ArrayList<Item> inventory;
-    private Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
+    private boolean fightInProgress;
+    private Boss ethiron = new Boss("\uD83D\uDC7B","Sans - The Eye of Calamity", 3000, 50,1);
     private Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
     private Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
@@ -64,7 +65,12 @@ public class Grid {
         int currentRow = 10;
         int currentCol = 10;
         AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
-        mainTheme.playSound();
+        if(!player.getInFight()){
+            mainTheme.playSound();
+        }
+        if(player.getInFight()){
+            mainTheme.pause();
+        }
         // PLACE HOLDER CONDITION (maybe, we can just set it to true when goal is met)
         while (!testGameFinish) {
             int newRow = currentRow;
@@ -78,16 +84,12 @@ public class Grid {
 
             if (direction.equals("W") && currentRow > 0) {
                 newRow = currentRow - 1;
-                //ethiron.playMusic();
             } else if (direction.equals("A") && currentCol > 0) {
                 newCol = currentCol - 1;
-                //cthyllus.playMusic();
             } else if (direction.equals("S") && currentRow < board.length - 1) {
                 newRow = currentRow + 1;
-                //daveyJones.playMusic();
             } else if (direction.equals("D") && currentCol < board[0].length - 1) {
                 newCol = currentCol + 1;
-                //matPat.playMusic();
             } else {
                 System.out.println("Invalid move. Try again.");
                 isValidMove = false;
@@ -103,6 +105,10 @@ public class Grid {
                     Boss currentBoss = (Boss) board[newRow][newCol];
                     currentBoss.encounterBoss();
                     player.fightMenu(currentBoss);
+                    if (!player.getInFight()) {
+                        currentBoss.pause();
+                        mainTheme.resume();
+                    }
                 }
 
                 if (board[newRow][newCol] instanceof Monster) {
