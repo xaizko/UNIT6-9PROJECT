@@ -30,6 +30,7 @@ public class Grid {
         System.out.print("Please enter your name: ");
         String name = scanner.nextLine();
         player = new Player(name);
+
     }
 
     private void setupBoard() {
