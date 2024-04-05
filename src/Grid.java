@@ -17,7 +17,7 @@ public class Grid {
     private Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
     private Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
-    private GUI frame;
+    //private GUI frame;
     public Grid() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         scanner = new Scanner(System.in);
         createPlayer();
