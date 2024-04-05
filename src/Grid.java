@@ -13,10 +13,10 @@ public class Grid {
     boolean testGameFinish;
     private ArrayList<Item> inventory;
     private boolean fightInProgress;
-    private Boss ethiron = new Boss("\uD83D\uDC7B","Sans - The Eye of Calamity", 3000, 50,1);
-    private Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
-    private Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
-    private Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
+    private Boss ethiron = new Boss("☠\uFE0F","Ethiron - The Eye of Calamity", 3000, 50,1);
+    private Boss cthyllus = new Boss("\uD83D\uDC19","Cthyllus - The Veiled Devourer", 2000, 65,2);
+    private Boss daveyJones = new Boss("\uD83D\uDC7B","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
+    private Boss matPat =  new Boss("\uD83E\uDD9C","Mathew Patrick - The Game Theorist ", 1000, 105,4);
     //private GUI frame;
     public Grid() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         scanner = new Scanner(System.in);
@@ -79,7 +79,7 @@ public class Grid {
             printBoard();
             System.out.print("Enter a direction (W, A, S, D): ");
             String direction = scanner.nextLine().toUpperCase();
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            //System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
             boolean isValidMove = true;
 

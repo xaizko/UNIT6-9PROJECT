@@ -11,7 +11,7 @@ public class MobEncounters extends Monster {
         super("_", name, health, atk);
         names = new String[]{"Aboleth", "Acolyte", "Alhoon", "Dragon",
                 "Wandering Spirit", "Frost Mage", "Shadow Wizard",
-        "Gorgon", "Aragog", "The Horde", "Evil Zebra", "The Kraken", "Siren","Mr Krab's in his army days"};
+        "Gorgon", "Aragog", "The Horde", "Evil Zebra", "The Kraken", "Siren","Mr Krabs in his army days"};
 
     }
 

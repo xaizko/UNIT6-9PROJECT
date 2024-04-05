@@ -33,10 +33,13 @@ public class Boss extends Monster {
             audioPlayer = new AudioPlayer("Two Steps from Hell - Heart of Courage.wav");
         }
     }
-
     public void pause() {
         if(audioPlayer != null) {
             audioPlayer.stop();
         }
     }
+    public int getType(){
+        return type;
+    }
+
 }

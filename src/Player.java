@@ -17,8 +17,8 @@ public class Player extends Space {
     private boolean inFight;
     private boolean won;
     private boolean EthironDefeated;
-    private boolean ChaserDefeated;
-    private boolean MaestroDefeated;
+    private boolean CthyllusDefeated;
+    private boolean MatPatDefeated;
     private boolean DavyDefeated;
     public Player(String name) {
         super("😀"); // symbol is emoji
@@ -86,6 +86,9 @@ public class Player extends Space {
             if(monster.isDead()){
                 inFight = false;
                 won = true;
+                if(monster instanceof Boss){
+                    bossThingy((Boss) monster);
+                }
                 System.out.println("You have won!");
             }
 
@@ -103,6 +106,7 @@ public class Player extends Space {
             System.out.println("error");
             fightMenu(monster);
         }
+        scan.nextLine();
     }
 /*
     public void bossMenu(Boss monster) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -158,6 +162,18 @@ public class Player extends Space {
     }
 
  */
+    public void bossThingy(Boss boss){
+        int type = boss.getType();
+        if (type == 1) {
+            EthironDefeated = true;
+        } else if (type == 2) {
+            CthyllusDefeated = true;
+        }else if(type == 3){
+            DavyDefeated = true;
+        }else{
+            MatPatDefeated = true;
+        }
+    }
     public void accessShop() {
         shop.menu();
         Scanner scan = new Scanner(System.in);
