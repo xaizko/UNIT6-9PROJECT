@@ -9,16 +9,16 @@ public class GUIMain {
         gui.setLayout(null);
         gui.setBackground(Color.CYAN);
         makeGrid(gui,0);
-        JLabel p = new JLabel(new ImageIcon("src/pirate.png"));
+        JLabel p = new JLabel(new ImageIcon("src/ImagePirate.png"));
         p.setLayout(null);
         p.setBounds(450, 450, 50, 50);
         gui.add(p);
-        JLabel shop = new JLabel(new ImageIcon("src/Shop.png"));
+        JLabel shop = new JLabel(new ImageIcon("src/ImageShop.png"));
         shop.setLayout(null);
         shop.setBounds(500, 450, 50, 50);
         gui.add(shop);
 
-        JLabel enemy = new JLabel(new ImageIcon("src/skeleton.png"));
+        JLabel enemy = new JLabel(new ImageIcon("src/ImageSkeleton.png"));
         enemy.setLayout(null);
         enemy.setBounds(450, 900, 50, 50);
         gui.add(enemy);

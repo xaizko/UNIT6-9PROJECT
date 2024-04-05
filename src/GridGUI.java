@@ -26,9 +26,9 @@ public class GridGUI {
     private final Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
     private boolean gameOver;
     public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
-        player = new JLabel(new ImageIcon("src/pirate.png"));
-        coin = new JLabel(new ImageIcon("src/shop.png"));
-        merchant = new JLabel(new ImageIcon("src/merchant.png"));
+        player = new JLabel(new ImageIcon("src/ImagePirate.png"));
+        coin = new JLabel(new ImageIcon("src/ImageShop.png"));
+        merchant = new JLabel(new ImageIcon("src/ImageMerchant.png"));
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         bossFight = new JPanel();
@@ -68,7 +68,7 @@ public class GridGUI {
         frame.add(sea);
         frame.setVisible(true);
 
-//        mainTheme.playSound();
+        mainTheme.playSound();
         while (!gameOver) {
             Thread.sleep(0);
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
@@ -90,12 +90,12 @@ public class GridGUI {
         JTextField welcome = new JTextField();
         welcome.setText("Welcome to the Merchant, what would you like to buy");
         welcome.setBackground(Color.LIGHT_GRAY);
-        welcome.setBounds(600,200,400,50);
+        welcome.setBounds(600,200,300,50);
 
         JTextField balance = new JTextField();
         balance.setText("You have " + attributes.getGold() + " Gold");
         balance.setBackground(Color.LIGHT_GRAY);
-        balance.setBounds(600,300,150,50);
+        balance.setBounds(600,300,100,50);
 
         JButton lifeCrystal = new JButton();
         lifeCrystal.setBounds(20,400,150,150);
@@ -122,7 +122,7 @@ public class GridGUI {
         bloodtideTrident.setText("Bloodtide Trident: 1000 Gold");
 
         JButton stormsEye = new JButton();
-        stormsEye.setBounds(610,400,150,150);
+        stormsEye.setBounds(610,400,200,150);
         stormsEye.setText("Stormseye: 5000 Gold");
 
         JButton shovel = new JButton();
