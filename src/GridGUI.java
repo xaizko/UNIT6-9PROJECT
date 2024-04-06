@@ -174,17 +174,17 @@ public class GridGUI {
                     } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
                         player.setLocation(player.getX() + 50, player.getY());
                     }
-                    if (player.getX() < -50) {
-                        player.setLocation(1050, player.getY());
+                    if (player.getX() < 0) {
+                        player.setLocation(950, player.getY());
                     }
-                    if (player.getX() > 1050) {
-                        player.setLocation(-50, player.getY());
+                    if (player.getX() > 950) {
+                        player.setLocation(0, player.getY());
                     }
-                    if (player.getY() < -50) {
-                        player.setLocation(player.getX(), 1050);
+                    if (player.getY() < 0) {
+                        player.setLocation(player.getX(), 950);
                     }
-                    if (player.getY() > 1050) {
-                        player.setLocation(player.getX(), -50);
+                    if (player.getY() > 950) {
+                        player.setLocation(player.getX(), 0);
                     }
                 }
         });
