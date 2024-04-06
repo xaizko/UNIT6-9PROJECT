@@ -25,7 +25,7 @@ public class Player extends Space {
         inFight = false;
         health = 100;
         shop = new Shop();
-        gold = 100000;
+        gold = 5000;
         won = false;
     }
     public boolean getInFight(){
@@ -187,7 +187,7 @@ public class Player extends Space {
         return false;
     }
     public boolean buy(int item) {
-        if (gold > shop.getCatalog()[item].getCost()) {
+        if (gold >= shop.getCatalog()[item].getCost()) {
             gold -= shop.getCatalog()[item].getCost();
             inventory.add(shop.getCatalog()[item]);
             System.out.println("Sucessfully bought");
