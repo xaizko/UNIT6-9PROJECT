@@ -206,7 +206,7 @@ public class Player extends Space {
     }
 
     public String toString() {
-        String str = "";
+        String str = "Inventory\n";
         for (int i = 0; i < inventory.size(); i++) {
             str += inventory.get(i).toString();
         }

@@ -33,7 +33,7 @@ public class Grid {
     }
 
     private void setupBoard() {
-        board = new Space[20][20];
+        board = new Space[21][21];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 board[i][j] = new Space("\uD83D\uDFE6");
@@ -43,13 +43,12 @@ public class Grid {
         //random encounters
 
         //boss spawns
-        board[9][9] = player;
-        board[0][9]  = ethiron;
-        board[9][0] = cthyllus;
-        board[9][19] = daveyJones;
-        board[19][9] = matPat;
-        board[9][19] = new Shop();
-
+        board[10][10] = player;
+        board[0][10]  = ethiron;
+        board[10][0] = cthyllus;
+        board[10][20] = daveyJones;
+        board[20][10] = matPat;
+        board[10][20] = new Shop();
     }
 
     private void printBoard() {

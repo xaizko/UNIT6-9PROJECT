@@ -1,7 +1,6 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.KeyAdapter;
@@ -173,6 +172,8 @@ public class GridGUI {
                         player.setLocation(player.getX() - 50, player.getY());
                     } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
                         player.setLocation(player.getX() + 50, player.getY());
+                    } else if (keyCode == KeyEvent.VK_I) {
+                        System.out.println(attributes.toString());
                     }
                     if (player.getX() < 0) {
                         player.setLocation(950, player.getY());

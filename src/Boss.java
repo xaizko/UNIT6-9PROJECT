@@ -29,7 +29,7 @@ public class Boss extends Monster {
         }else if(type == 4){
             audioPlayer = new AudioFile("Science Blaster (Song Remix created by Nirre & Acid Usagi) Game Theory Audio Spectrum Tribute.wav");
             audioPlayer.playSound();
-        }else{
+        }else {
             audioPlayer = new AudioFile("Two Steps from Hell - Heart of Courage.wav");
         }
     }
