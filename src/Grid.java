@@ -99,9 +99,9 @@ public class Grid {
             if (isValidMove) {
 
                 //shop encounter
-                if (board[newRow][newCol] instanceof Shop) {
-                    player.accessShop();
-                }
+//                if (board[newRow][newCol] instanceof Shop) {
+//                    player.accessShop();
+//                }
                 if(board[newRow][newCol] instanceof Boss){
                     Boss currentBoss = (Boss) board[newRow][newCol];
                     currentBoss.encounterBoss();

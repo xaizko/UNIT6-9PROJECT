@@ -1,9 +1,5 @@
 // push pls
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.text.Utilities;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,12 +20,12 @@ public class Player extends Space {
         super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
-        inventory.add(new Item("Base Sword", 5000, null, 10));
+        inventory.add(new Item("Base Sword", 5000, null, 10, 0));
         scan = new Scanner(System.in);
         inFight = false;
         health = 100;
         shop = new Shop();
-        gold = 0;
+        gold = 100000;
         won = false;
     }
     public boolean getInFight(){
@@ -174,20 +170,21 @@ public class Player extends Space {
             MatPatDefeated = true;
         }
     }
-    public void accessShop() {
-        shop.menu();
-        Scanner scan = new Scanner(System.in);
-        System.out.println("what do you wanna buy?");
-        buy(shop.getCatalog()[scan.nextInt()]);
-    }
+//    public void accessShop() {
+//        shop.menu();
+//        Scanner scan = new Scanner(System.in);
+//        System.out.println("what do you wanna buy?");
+//        buy(shop.getCatalog()[scan.nextInt()]);
+//    }
 
-    public boolean buy(Item item) {
-        if (gold > item.getCost()) {
-            gold -= item.getCost();
-            inventory.add(item);
-            return true;
+    public void buy(int item) {
+        if (gold > shop.getCatalog()[item].getCost()) {
+            gold -= shop.getCatalog()[item].getCost();
+            inventory.add(shop.getCatalog()[item]);
+            System.out.println("Sucessfully bought");
+            return;
         }
-        return false;
+        System.out.println("Insufficient Funds");
     }
 
     public int getGold() {

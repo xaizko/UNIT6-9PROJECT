@@ -3,14 +3,14 @@
 import java.util.Scanner;
 
 public class Shop extends Space {
-    private static final Item LIFE_CRYSTAL = new Item("Life Crystal", null, 50, 20);
-    private static final Item KATANA = new Item("Katana", 25, null, 100);
-    private static final Item RAILBLADE = new Item("Railblade",200 , null, 3000);
-    private static final Item CRYPT_BLADE = new Item("Crypt Blade",500 , null, 10000);
-    private static final Item SHATTERED_KATANA = new Item("Shattered Katana", 70, null, 500);
-    private static final Item BlOODTIDE_TRIDENT = new Item("Bloodtide Trident",120 , null, 1000);
-    private static final Item STORMSEYE = new Item("Stormseye", 300, null, 5000);
-    private static final Item SHOVEL = new Item("Shovel", 15, null, 50);
+    private static final Item LIFE_CRYSTAL = new Item("Life Crystal", null, 50, 20, 1);
+    private static final Item KATANA = new Item("Katana", 25, null, 100, 2);
+    private static final Item RAILBLADE = new Item("Railblade",200 , null, 3000, 3);
+    private static final Item CRYPT_BLADE = new Item("Crypt Blade",500 , null, 10000, 4);
+    private static final Item SHATTERED_KATANA = new Item("Shattered Katana", 70, null, 500, 5);
+    private static final Item BlOODTIDE_TRIDENT = new Item("Bloodtide Trident",120 , null, 1000, 5);
+    private static final Item STORMSEYE = new Item("Stormseye", 300, null, 5000, 7);
+    private static final Item SHOVEL = new Item("Shovel", 15, null, 50, 8);
 
     //ARMOR + ACCESSORIES TO HEALTH INCREASE
     private static final int LEATHER_ARMOR_COST = 100;
@@ -32,9 +32,6 @@ public class Shop extends Space {
 
     public void menu() {
         System.out.println(printShop());
-
-
-
     }
 
     public String printShop() {

@@ -193,7 +193,7 @@ public class GridGUI {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                attributes.buy(Integer.parseInt(button.getText().substring(0,1)));
             }
         } );
     }
