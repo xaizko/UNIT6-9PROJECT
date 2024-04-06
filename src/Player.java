@@ -1,4 +1,4 @@
-// push pls
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -190,7 +190,7 @@ public class Player extends Space {
         if (gold >= shop.getCatalog()[item].getCost()) {
             gold -= shop.getCatalog()[item].getCost();
             inventory.add(shop.getCatalog()[item]);
-            System.out.println("Sucessfully bought");
+            System.out.println("Successfully bought");
             return true;
         }
         System.out.println("Insufficient Funds");
