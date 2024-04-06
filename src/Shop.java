@@ -55,4 +55,5 @@ public class Shop extends Space {
     public Item[] getCatalog() {
         return catalog;
     }
+    public Item[] getCatalogB() {return catalogB};
 }
