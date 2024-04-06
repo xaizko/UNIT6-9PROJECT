@@ -27,4 +27,17 @@ public class Item {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        Integer attack = atk;
+        Integer health = increasedHealth;
+        if (attack == null) {
+            attack = 0;
+        }
+        if (health == null) {
+            health = 0;
+        }
+        return "Item name: " + name + ", Item Attack: " + attack + ", Added Health: " + health + "\n";
+    }
 }

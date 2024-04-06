@@ -17,9 +17,11 @@ public class GridGUI {
     private JPanel bossFight;
     private JPanel sea;
     private JPanel shop;
+    private JTextPane balance;
+    private JTextPane welcome;
     private ArrayList<Item> inventory;
     private Player attributes;
-    private AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
+    private AudioFile mainTheme = new AudioFile("Main Theme Pirates of the Caribbean.wav");
     private final Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
     private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private final Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
@@ -36,30 +38,27 @@ public class GridGUI {
         shop = new JPanel();
         attributes = new Player("Traveler");
         gameOver = false;
+        listenerInitializer();
+        initializeShop();
+        initializeSea();
+        frame.setSize(1000,1000);
         play();
     }
 
     private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
 //        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
 //        mainTheme.playSound();
-        listenerInitializer();
-        initializeShop();
-        initializeSea();
 
-        frame.setSize(1000,1000);
         frame.add(sea);
         frame.setVisible(true);
-
-        mainTheme.playSound();
         while (!gameOver) {
             Thread.sleep(0);
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
                 player.setLocation(450,450);
                 frame.setVisible(false);
                 frame.remove(sea);
-                buyGear();
-                frame.remove(shop);
-                frame.add(sea);
+                frame.add(shop);
+                frame.setVisible(true);
             }
         }
     }
@@ -87,12 +86,12 @@ public class GridGUI {
     }
 
     private void initializeShop() {
-        JTextField welcome = new JTextField();
+        welcome = new JTextPane();
         welcome.setText("Welcome to the Merchant, what would you like to buy");
         welcome.setBackground(Color.LIGHT_GRAY);
         welcome.setBounds(600,200,300,50);
 
-        JTextField balance = new JTextField();
+        balance = new JTextPane();
         balance.setText("You have " + attributes.getGold() + " Gold");
         balance.setBackground(Color.LIGHT_GRAY);
         balance.setBounds(600,300,100,50);
@@ -137,6 +136,19 @@ public class GridGUI {
         shovel.setText("8. Shovel: 50 G");
         buttonInitializer(shovel);
 
+        JButton exit = new JButton();
+        exit.setBounds(50,50,100,100);
+        exit.setText("Exit Shop");
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(shop);
+                frame.add(sea);
+                frame.setVisible(true);
+            }
+        } );
+
         shop.add(balance);
         shop.add(welcome);
         shop.add(lifeCrystal);
@@ -147,45 +159,34 @@ public class GridGUI {
         shop.add(bloodtideTrident);
         shop.add(stormsEye);
         shop.add(shovel);
+        shop.add(exit);
     }
-    private void buyGear() {
-        boolean browsing = true;
-        frame.add(shop);
-        frame.setVisible(true);
-        while (browsing) {
-
-        }
-    }
-
     private void listenerInitializer() {
         frame.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
-                    player.setLocation(player.getX(), player.getY() - 50);
+                    int keyCode = e.getKeyCode();
+                    if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+                        player.setLocation(player.getX(), player.getY() - 50);
+                    } else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+                        player.setLocation(player.getX(), player.getY() + 50);
+                    } else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+                        player.setLocation(player.getX() - 50, player.getY());
+                    } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
+                        player.setLocation(player.getX() + 50, player.getY());
+                    }
+                    if (player.getX() < -50) {
+                        player.setLocation(1050, player.getY());
+                    }
+                    if (player.getX() > 1050) {
+                        player.setLocation(-50, player.getY());
+                    }
+                    if (player.getY() < -50) {
+                        player.setLocation(player.getX(), 1050);
+                    }
+                    if (player.getY() > 1050) {
+                        player.setLocation(player.getX(), -50);
+                    }
                 }
-                else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
-                    player.setLocation(player.getX(), player.getY() + 50);
-                }
-                else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
-                    player.setLocation(player.getX() - 50, player.getY());
-                }
-                else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
-                    player.setLocation(player.getX() + 50, player.getY());
-                }
-                if (player.getX() <  -50) {
-                    player.setLocation(1050, player.getY());
-                }
-                if (player.getX() >  1050) {
-                    player.setLocation(-50, player.getY());
-                }
-                if (player.getY() <  -50) {
-                    player.setLocation(player.getX(), 1050);
-                }
-                if (player.getY() >  1050) {
-                    player.setLocation(player.getX(), -50);
-                }
-            }
         });
     }
 
@@ -193,7 +194,12 @@ public class GridGUI {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                attributes.buy(Integer.parseInt(button.getText().substring(0,1)));
+                if(attributes.buy(Integer.parseInt(button.getText().substring(0,1)) - 1)) {
+                    System.out.println(attributes.toString());
+                    button.setVisible(false);
+                    shop.remove(button);
+                    balance.setText("You have " + attributes.getGold() + " Gold");
+                }
             }
         } );
     }

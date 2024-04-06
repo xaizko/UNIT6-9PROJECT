@@ -170,6 +170,7 @@ public class Player extends Space {
             MatPatDefeated = true;
         }
     }
+
 //    public void accessShop() {
 //        shop.menu();
 //        Scanner scan = new Scanner(System.in);
@@ -177,17 +178,38 @@ public class Player extends Space {
 //        buy(shop.getCatalog()[scan.nextInt()]);
 //    }
 
-    public void buy(int item) {
+    public boolean buy(Item item) {
+        if (gold > item.getCost()) {
+            gold -= item.getCost();
+            inventory.add(item);
+            return true;
+        }
+        return false;
+    }
+    public boolean buy(int item) {
         if (gold > shop.getCatalog()[item].getCost()) {
             gold -= shop.getCatalog()[item].getCost();
             inventory.add(shop.getCatalog()[item]);
             System.out.println("Sucessfully bought");
-            return;
+            return true;
         }
         System.out.println("Insufficient Funds");
+        return false;
     }
 
     public int getGold() {
         return gold;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+
+    public String toString() {
+        String str = "";
+        for (int i = 0; i < inventory.size(); i++) {
+            str += inventory.get(i).toString();
+        }
+        return str;
     }
 }

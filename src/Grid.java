@@ -17,7 +17,6 @@ public class Grid {
     private Boss cthyllus = new Boss("\uD83D\uDC19","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private Boss daveyJones = new Boss("\uD83D\uDC7B","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
     private Boss matPat =  new Boss("\uD83E\uDD9C","Mathew Patrick - The Game Theorist ", 1000, 105,4);
-    //private GUI frame;
     public Grid() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         scanner = new Scanner(System.in);
         createPlayer();
@@ -65,7 +64,7 @@ public class Grid {
     private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int currentRow = 10;
         int currentCol = 10;
-        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
+        AudioFile mainTheme = new AudioFile("Main Theme Pirates of the Caribbean.wav");
         if(!player.getInFight()){
             mainTheme.playSound();
         }

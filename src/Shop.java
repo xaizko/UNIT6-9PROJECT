@@ -34,6 +34,8 @@ public class Shop extends Space {
         System.out.println(printShop());
     }
 
+
+
     public String printShop() {
         String str = "Weapons:\n";
         for (int i = 0; i < catalog.length; i++) {

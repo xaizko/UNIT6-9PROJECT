@@ -9,14 +9,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
     //Written by Justin, No consent given to share code with anyone outside of my group.
     //Papa sta rubando il mio code, e non mi chiede consenti per usa. Vaffanculo!
-    public class AudioPlayer {
+public class AudioFile {
     String sound;
     Clip clip;
     AudioInputStream audioStream;
     File file;
     boolean paused = false;
-    static AudioPlayer currentPlayer = null;
-    public AudioPlayer(String sound) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+    static AudioFile currentPlayer = null;
+    public AudioFile(String sound) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
         this.sound = sound;
         file = new File(sound);
         audioStream = AudioSystem.getAudioInputStream(file);

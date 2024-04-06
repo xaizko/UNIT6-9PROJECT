@@ -1,4 +1,4 @@
-public class Monster extends Space{
+public class Monster extends Space {
     private String name;
     private int health;
     private int atk;
@@ -9,7 +9,7 @@ public class Monster extends Space{
         this.name = name;
         this.health = health;
         this.atk = atk;
-        dead =false;
+        dead = false;
     }
     public String getName() {
         return name;
