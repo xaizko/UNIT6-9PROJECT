@@ -17,7 +17,13 @@ public class GridGUI {
     private JLabel skeleton;
     private JLabel octopus;
     private JLabel ghost;
-    private JLabel captain;
+    private JLabel captain1;
+    private JLabel captain2;
+    private JLabel captain3;
+    private JLabel captain4;
+    private JLabel captain5;
+    private JLabel captain6;
+    private JLabel captain7;
     private JLabel gameTheory;
     // mob fight
     private JPanel mobFight;
@@ -46,7 +52,13 @@ public class GridGUI {
         octopus = new JLabel(new ImageIcon("src/ImageOctopus.png"));
         ghost = new JLabel(new ImageIcon("src/ImageGhost.png"));
         gameTheory = new JLabel(new ImageIcon("src/ImageGameTheory.png"));
-        captain = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain1 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain2 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain3 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain4 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain5 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain6 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        captain7 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         sea = new JPanel();
@@ -70,9 +82,28 @@ public class GridGUI {
             if (attributes.finalBoss()) {
                 System.exit(0);
             }
-            if (player.getX() == captain.getX() && player.getY() == captain.getY()) {
+            if (player.getX() == captain1.getX() && player.getY() == captain1.getY()) {
                 fightMob();
             }
+            if (player.getX() == captain2.getX() && player.getY() == captain2.getY()) {
+                fightMob();
+            }
+            if (player.getX() == captain3.getX() && player.getY() == captain3.getY()) {
+                fightMob();
+            }
+            if (player.getX() == captain4.getX() && player.getY() == captain4.getY()) {
+                fightMob();
+            }
+            if (player.getX() == captain5.getX() && player.getY() == captain5.getY()) {
+                fightMob();
+            }
+            if (player.getX() == captain6.getX() && player.getY() == captain6.getY()) {
+                fightMob();
+            }
+            if (player.getX() == captain7.getX() && player.getY() == captain7.getY()) {
+                fightMob();
+            }
+
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
                 mainTheme.pause();
                 mainTheme = new AudioFile("shopkeeper'sTangle.wav");
@@ -372,7 +403,13 @@ public class GridGUI {
 
         coin.setBounds(500,500,50,50);
 
-        captain.setBounds(250,250,50,50);
+        captain1.setBounds(250,250,50,50);
+        captain2.setBounds(350,450,50,50);
+        captain3.setBounds(100,500,50,50);
+        captain4.setBounds(200,100,50,50);
+        captain5.setBounds(800,200,50,50);
+        captain6.setBounds(600,600,50,50);
+        captain7.setBounds(550,100,50,50);
 
         skeleton.setBounds(500,0,50,50);
 
@@ -380,12 +417,18 @@ public class GridGUI {
 
         ghost.setBounds(950,500,50,50);
 
-        octopus.setBounds(500,950,50,50);
+        octopus.setBounds(500,900,50,50);
         makeGrid(sea, 0);
 
         sea.add(player);
         sea.add(coin);
-        sea.add(captain);
+        sea.add(captain1);
+        sea.add(captain2);
+        sea.add(captain3);
+        sea.add(captain4);
+        sea.add(captain5);
+        sea.add(captain6);
+        sea.add(captain7);
 
         sea.add(skeleton);
         sea.add(gameTheory);
