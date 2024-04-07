@@ -99,9 +99,59 @@ public class GridGUI {
         player.setLocation(450,450);
         frame.remove(sea);
         bossFight = new JPanel();
+        bossFight.setLayout(null);
         bossFight.setBackground(color);
         bossFight.setSize(1000,1000);
+
+        img.setBounds(500,200,600,400);
         bossFight.add(img);
+
+        JTextPane playerHealth = new JTextPane();
+        playerHealth.setText("Health Remaining: " + attributes.getHealth());
+        playerHealth.setBounds(50,450,150,20);
+        playerHealth.setBackground(Color.LIGHT_GRAY);
+
+        JTextPane bossHealth = new JTextPane();
+        bossHealth.setText("Health Remaining " + boss.getHealth());
+        bossHealth.setBounds(700,700,150,20);
+        bossHealth.setBackground(Color.LIGHT_GRAY);
+
+        JButton atk = new JButton();
+        atk.setBounds(100,100,200,200);
+        atk.setText("Attack");
+        atk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
+        JButton heal = new JButton();
+        heal.setBounds(250,350,200,200);
+        heal.setText("Use Heal Pot");
+        heal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
+        JButton run = new JButton();
+        run.setBounds(100,600,200,200);
+        run.setText("Run");
+        run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
+        bossFight.add(atk);
+        bossFight.add(heal);
+        bossFight.add(run);
+        bossFight.add(bossHealth);
+        bossFight.add(playerHealth);
+
         frame.add(bossFight);
         frame.setVisible(true);
     }

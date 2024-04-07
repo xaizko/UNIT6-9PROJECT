@@ -45,7 +45,7 @@ public class Player extends Space {
     }
 
     public int attack() {
-        double damage = inventory.get(0).getAtk();
+        double damage = weapon.getAtk();
         damage *= (Math.random() + 0.5);
         return (int) damage;
     }
