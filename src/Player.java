@@ -1,14 +1,14 @@
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player extends Space {
     private String name;
     private int health;
+    private Item weapon;
+    private Item armor;
+    private ArrayList<Item> inventory;
     private Shop shop;
     private int gold;
-    private ArrayList<Item> inventory;
     private Scanner scan;
     private boolean inFight;
     private boolean won;
@@ -16,11 +16,14 @@ public class Player extends Space {
     private boolean CthyllusDefeated;
     private boolean MatPatDefeated;
     private boolean DavyDefeated;
+
     public Player(String name) {
         super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
         inventory.add(new Item("Base Sword", 5000, null, 10, 0));
+        weapon = new Item("Base Sword", 5000, null, 10, 0);
+        armor = new Item("Leather Armor", null, 50, 200, 9);
         scan = new Scanner(System.in);
         inFight = false;
         health = 100;
@@ -28,13 +31,16 @@ public class Player extends Space {
         gold = 5000;
         won = false;
     }
-    public boolean getInFight(){
+
+    public boolean getInFight() {
         return inFight;
     }
+
     public int getHealth() {
         return health;
     }
-    public boolean getWin(){
+
+    public boolean getWin() {
         return won;
     }
 
@@ -43,6 +49,7 @@ public class Player extends Space {
         damage *= (Math.random() + 0.5);
         return (int) damage;
     }
+
     public void fightMonster(Monster monster) {
         inFight = true;
         while (inFight) {
@@ -79,10 +86,10 @@ public class Player extends Space {
                 won = false;
                 System.out.println("YOU LOST!!!!!!!!!!!!!!!!!!!!!");
             }
-            if(monster.isDead()){
+            if (monster.isDead()) {
                 inFight = false;
                 won = true;
-                if(monster instanceof Boss){
+                if (monster instanceof Boss) {
                     bossThingy((Boss) monster);
                 }
                 System.out.println("You have won!");
@@ -104,69 +111,70 @@ public class Player extends Space {
         }
         scan.nextLine();
     }
-/*
-    public void bossMenu(Boss monster) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        System.out.println("1) attack");
-        System.out.println("2) switch item");
-        System.out.println("3) run");
-        String choice = scan.nextLine();
-        if(!inFight){
-            monster.pause();
-        }
-        if(inFight){
-            monster.encounterBoss();
-        }
-        if (choice.equals("1")) {
-            int damage;
-            int monsterDamage;
-            damage = attack();
-            monsterDamage = monster.attack();
-            health -= monsterDamage;
-            monster.takeDamage(damage);
 
-            System.out.println(monster.getName() + " takes " + damage + " damage! \uD83D\uDC79");
-            System.out.println(name + " takes " + monsterDamage + " damage! 🩸");
-
-            try {
-                Thread.sleep(200);
-            } catch (Exception e) {
-                System.out.println("error");
+    /*
+        public void bossMenu(Boss monster) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+            System.out.println("1) attack");
+            System.out.println("2) switch item");
+            System.out.println("3) run");
+            String choice = scan.nextLine();
+            if(!inFight){
+                monster.pause();
             }
-            System.out.println(monster.getName() + " has " + monster.getHealth() + " health");
-            System.out.println(name + " has " + health + " health\n");
+            if(inFight){
+                monster.encounterBoss();
+            }
+            if (choice.equals("1")) {
+                int damage;
+                int monsterDamage;
+                damage = attack();
+                monsterDamage = monster.attack();
+                health -= monsterDamage;
+                monster.takeDamage(damage);
 
-            if (health < 0) {
-                health = 1;
+                System.out.println(monster.getName() + " takes " + damage + " damage! \uD83D\uDC79");
+                System.out.println(name + " takes " + monsterDamage + " damage! 🩸");
+
+                try {
+                    Thread.sleep(200);
+                } catch (Exception e) {
+                    System.out.println("error");
+                }
+                System.out.println(monster.getName() + " has " + monster.getHealth() + " health");
+                System.out.println(name + " has " + health + " health\n");
+
+                if (health < 0) {
+                    health = 1;
+                    inFight = false;
+                    System.out.println("YOU LOST!!!!!!!!!!!!!!!!!!!!!");
+                }
+
+            } else if (choice.equals("2")) {
+                for (int i = 0; i < inventory.size(); i++) {
+                    System.out.println(i + " " + inventory.get(i));
+                }
+                int itemChoice = scan.nextInt();
+                inventory.add(0, inventory.remove(itemChoice));
+
+            } else if (choice.equals("3")) {
+                System.out.println("coward");
                 inFight = false;
-                System.out.println("YOU LOST!!!!!!!!!!!!!!!!!!!!!");
+            } else {
+                System.out.println("error");
+                fightMenu(monster);
             }
-
-        } else if (choice.equals("2")) {
-            for (int i = 0; i < inventory.size(); i++) {
-                System.out.println(i + " " + inventory.get(i));
-            }
-            int itemChoice = scan.nextInt();
-            inventory.add(0, inventory.remove(itemChoice));
-
-        } else if (choice.equals("3")) {
-            System.out.println("coward");
-            inFight = false;
-        } else {
-            System.out.println("error");
-            fightMenu(monster);
         }
-    }
 
- */
-    public void bossThingy(Boss boss){
+     */
+    public void bossThingy(Boss boss) {
         int type = boss.getType();
         if (type == 1) {
             EthironDefeated = true;
         } else if (type == 2) {
             CthyllusDefeated = true;
-        }else if(type == 3){
+        } else if (type == 3) {
             DavyDefeated = true;
-        }else{
+        } else {
             MatPatDefeated = true;
         }
     }
@@ -186,11 +194,39 @@ public class Player extends Space {
         }
         return false;
     }
-    public boolean buy(int item) {
-        if (gold >= shop.getCatalog()[item].getCost()) {
-            gold -= shop.getCatalog()[item].getCost();
-            inventory.add(shop.getCatalog()[item]);
-            System.out.println("Successfully bought");
+    public void lifeCrystalUsed() {
+        health += 50;
+        gold -= 50;
+    }
+
+    public boolean buyWeapon(int item) {
+        if (gold >= shop.getCatalogA()[item].getCost()) {
+            gold -= shop.getCatalogA()[item].getCost();
+            weapon = shop.getCatalogA()[item];
+            System.out.println("Successfully bought: " + shop.getCatalogA()[item].getName());
+            return true;
+        }
+        System.out.println("Insufficient Funds");
+        return false;
+    }
+
+    public boolean buyArmor(int item) {
+        if (gold >= shop.getCatalogB()[item].getCost()) {
+            gold -= shop.getCatalogB()[item].getCost();
+            armor = shop.getCatalogB()[item];
+            System.out.println("Successfully bought: " + shop.getCatalogB()[item].getName());
+            return true;
+        }
+        System.out.println("Insufficient Funds");
+        return false;
+    }
+
+    public boolean buyAccessory(int item) {
+        if (gold >= shop.getCatalogB()[item].getCost()) {
+            gold -= shop.getCatalogB()[item].getCost();
+            health += shop.getCatalogB()[item].getIncreasedHealth();
+            System.out.println("Successfully bought, total health increased");
+
             return true;
         }
         System.out.println("Insufficient Funds");
@@ -201,15 +237,11 @@ public class Player extends Space {
         return gold;
     }
 
-    public ArrayList<Item> getInventory() {
-        return inventory;
-    }
-
+    @Override
     public String toString() {
-        String str = "Inventory\n";
-        for (int i = 0; i < inventory.size(); i++) {
-            str += inventory.get(i).toString();
-        }
+        String str = "\n\nInventory\n";
+        str += "Weapon: " + weapon.getName() + ", Attack: " + weapon.getAtk();
+        str += "\nArmor: " + armor.getName() + ", Health: " + (health + armor.getIncreasedHealth()) + "\n";
         return str;
     }
 }

@@ -38,6 +38,6 @@ public class Item {
         if (health == null) {
             health = 0;
         }
-        return "Item name: " + name + ", Item Attack: " + attack + ", Added Health: " + health + "\n";
+        return "Item name: " + name + "\nItem Attack: " + attack + "\nAdded Health: " + health;
     }
 }

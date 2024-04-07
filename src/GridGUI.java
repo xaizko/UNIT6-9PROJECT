@@ -23,10 +23,13 @@ public class GridGUI {
     // boss fight and attributes
     private JPanel bossFight;
     // shop and attributes
-    private JPanel shop;
+    private JPanel shopA;
+    private JPanel shopB;
     private JLabel merchant;
-    private JTextPane balance;
-    private JTextPane welcome;
+    private JTextPane balanceA;
+    private JTextPane balanceB;
+    private JTextPane welcomeA;
+    private JTextPane welcomeB;
     private ArrayList<Item> inventory;
     private Player attributes;
     private AudioFile mainTheme = new AudioFile("Main Theme Pirates of the Caribbean.wav");
@@ -46,7 +49,8 @@ public class GridGUI {
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         sea = new JPanel();
-        shop = new JPanel();
+        shopA = new JPanel();
+        shopB = new JPanel();
         attributes = new Player("Traveler");
         gameOver = false;
         listenerInitializer();
@@ -66,23 +70,19 @@ public class GridGUI {
                 player.setLocation(450,450);
                 frame.setVisible(false);
                 frame.remove(sea);
-                frame.add(shop);
+                frame.add(shopA);
                 frame.setVisible(true);
             }
             if (player.getX() == skeleton.getX() && player.getY() == skeleton.getY()) {
-                player.setLocation(450,450);
                 fightBoss(ethiron, new JLabel(new ImageIcon("src/ImageSans.png")), Color.BLUE);
             }
             if (player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
-                player.setLocation(450,450);
                 fightBoss(cthyllus, new JLabel(new ImageIcon("src/ImageCthulhu(Cthyllus).png")), Color.WHITE);
             }
             if (player.getX() == ghost.getX() && player.getY() == ghost.getY()) {
-                player.setLocation(450,450);
                 fightBoss(daveyJones, new JLabel(new ImageIcon("src/ImageDaveyJones.png")), Color.MAGENTA);
             }
             if (player.getX() == gameTheory.getX() && player.getY() == gameTheory.getY()) {
-                player.setLocation(450,450);
                 fightBoss(matPat, new JLabel(new ImageIcon("src/ImageMatPat.png")), Color.GREEN);
             }
         }
@@ -90,6 +90,7 @@ public class GridGUI {
     private void fightBoss(Boss boss, JLabel img, Color color) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         boss.encounterBoss();
         frame.setVisible(false);
+        player.setLocation(450,450);
         frame.remove(sea);
         bossFight = new JPanel();
         bossFight.setBackground(color);
@@ -98,7 +99,6 @@ public class GridGUI {
         frame.add(bossFight);
         frame.setVisible(true);
     }
-
     private void initializeSea() {
         sea.setLayout(null);
         sea.setSize(1000,1000);
@@ -118,86 +118,215 @@ public class GridGUI {
     }
 
     private void initializeShop() {
-        shop.setLayout(null);
-        shop.setSize(1000,1000);
-        shop.setBackground(Color.LIGHT_GRAY);
+        shopA.setLayout(null);
+        shopA.setSize(1000,1000);
+        shopA.setBackground(Color.LIGHT_GRAY);
+
+        shopB.setLayout(null);
+        shopB.setSize(1000,1000);
+        shopB.setBackground(Color.LIGHT_GRAY);
 
         merchant.setBounds(100,0,500,500);
 
-        welcome = new JTextPane();
-        welcome.setText("Welcome to the Merchant, what would you like to buy");
-        welcome.setBackground(Color.LIGHT_GRAY);
-        welcome.setBounds(600,200,300,50);
+        welcomeA = new JTextPane();
+        welcomeA.setText("Welcome to the Merchant, what weapons would you like to buy");
+        welcomeA.setBackground(Color.LIGHT_GRAY);
+        welcomeA.setBounds(600,180,300,50);
 
-        balance = new JTextPane();
-        balance.setText("You have " + attributes.getGold() + " Gold");
-        balance.setBackground(Color.LIGHT_GRAY);
-        balance.setBounds(600,300,100,50);
+        balanceA = new JTextPane();
+        balanceA.setText("You have " + attributes.getGold() + " Gold");
+        balanceA.setBackground(Color.LIGHT_GRAY);
+        balanceA.setBounds(600,300,100,50);
 
-        JButton lifeCrystal = new JButton();
-        lifeCrystal.setBounds(20,400,150,150);
-        lifeCrystal.setText("1. Life Crystal: 50 G");
-        buttonInitializer(lifeCrystal);
+        JButton nextPage = new JButton();
+        nextPage.setBounds(750,230,150,150);
+        nextPage.setText("Next page");
+        nextPage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                frame.setVisible(false);
+                frame.remove(shopA);
+                frame.add(shopB);
+                frame.setVisible(true);
+            }
+        });
+
+        JButton ironHook = new JButton();
+        ironHook.setBounds(20,400,200,150);
+        ironHook.setText("1. Iron Hook: 500 G");
+        buttonInitializerShopA(ironHook);
 
         JButton katana = new JButton();
-        katana.setBounds(20, 600, 150, 150);
+        katana.setBounds(20, 600, 200, 150);
         katana.setText("2. Katana: 100 G");
-        buttonInitializer(katana);
+        buttonInitializerShopA(katana);
 
         JButton railBlade = new JButton();
-        railBlade.setBounds(200,400,150,150);
+        railBlade.setBounds(240,400,200,150);
         railBlade.setText("3. Railblade: 3000 G");
-        buttonInitializer(railBlade);
+        buttonInitializerShopA(railBlade);
 
         JButton cryptBlade = new JButton();
-        cryptBlade.setBounds(200,600,200,150);
+        cryptBlade.setBounds(240,600,200,150);
         cryptBlade.setText("4. Crypt Blade: 10000 G");
-        buttonInitializer(cryptBlade);
+        buttonInitializerShopA(cryptBlade);
 
         JButton shatteredKatana = new JButton();
-        shatteredKatana.setBounds(380,400,200,150);
+        shatteredKatana.setBounds(470,400,200,150);
         shatteredKatana.setText("5. Shattered Katana: 500 G");
-        buttonInitializer(shatteredKatana);
+        buttonInitializerShopA(shatteredKatana);
 
         JButton bloodtideTrident = new JButton();
-        bloodtideTrident.setBounds(420,600,200,150);
+        bloodtideTrident.setBounds(470,600,200,150);
         bloodtideTrident.setText("6. Bloodtide Trident: 1000 G");
-        buttonInitializer(bloodtideTrident);
+        buttonInitializerShopA(bloodtideTrident);
 
         JButton stormsEye = new JButton();
-        stormsEye.setBounds(610,400,200,150);
+        stormsEye.setBounds(700,400,200,150);
         stormsEye.setText("7. Stormseye: 5000 G");
-        buttonInitializer(stormsEye);
+        buttonInitializerShopA(stormsEye);
 
         JButton shovel = new JButton();
-        shovel.setBounds(650,600,150,150);
+        shovel.setBounds(700,600,200,150);
         shovel.setText("8. Shovel: 50 G");
-        buttonInitializer(shovel);
+        shovel.setText("1. Life Crystal: 50 G");
+        buttonInitializerShopA(shovel);
 
-        JButton exit = new JButton();
-        exit.setBounds(50,50,100,100);
-        exit.setText("Exit Shop");
-        exit.addActionListener(new ActionListener() {
+        JButton exitA = new JButton();
+        exitA.setBounds(50,50,100,100);
+        exitA.setText("Exit Shop");
+        exitA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                frame.remove(shop);
+                frame.remove(shopA);
                 frame.add(sea);
                 frame.setVisible(true);
             }
-        } );
-        shop.add(merchant);
-        shop.add(balance);
-        shop.add(welcome);
-        shop.add(lifeCrystal);
-        shop.add(katana);
-        shop.add(railBlade);
-        shop.add(cryptBlade);
-        shop.add(shatteredKatana);
-        shop.add(bloodtideTrident);
-        shop.add(stormsEye);
-        shop.add(shovel);
-        shop.add(exit);
+        });
+
+
+        welcomeB = new JTextPane();
+        welcomeB.setText("What armor shall thy don in battle");
+        welcomeB.setBackground(Color.LIGHT_GRAY);
+        welcomeB.setBounds(600,80,300,50);
+
+        balanceB = new JTextPane();
+        balanceB.setText("You have " + attributes.getGold() + " Gold");
+        balanceB.setBackground(Color.LIGHT_GRAY);
+        balanceB.setBounds(600,20,100,50);
+
+        JButton prevPage = new JButton();
+        prevPage.setBounds(250,30,150,150);
+        prevPage.setText("Prev page");
+        prevPage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                frame.setVisible(false);
+                frame.remove(shopB);
+                frame.add(shopA);
+                frame.setVisible(true);
+            }
+        });
+
+        JButton lifeCrystal = new JButton();
+        lifeCrystal.setBounds(210,250,200,150);
+        lifeCrystal.setText("1. Life Crystal: 50 G");
+        lifeCrystal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (attributes.getGold() >= 50) {
+                    System.out.println("Life Crystal bought, increasing health points");
+                    attributes.lifeCrystalUsed();
+                    balanceA.setText("You have " + attributes.getGold() + " Gold");
+                    balanceB.setText("You have " + attributes.getGold() + " Gold");
+                    System.out.println(attributes.toString());
+                } else {
+                    System.out.println("Insufficient Balance");
+                }
+            }
+        });
+
+        JButton ironArmor = new JButton();
+        ironArmor.setBounds(210,410,200,150);
+        ironArmor.setText("2. Iron Armor: 500 G");
+        buttonInitializerShopB(ironArmor);
+
+        JButton pirateCoat = new JButton();
+        pirateCoat.setBounds(210,570,200,150);
+        pirateCoat.setText("3. Pirate Coat: 750 G");
+        buttonInitializerShopB(pirateCoat);
+
+        JButton sharkSkin = new JButton();
+        sharkSkin.setBounds(430,250,200,150);
+        sharkSkin.setText("4. Shark Skin: 1500 G");
+        buttonInitializerShopB(sharkSkin);
+
+        JButton krakenSkin = new JButton();
+        krakenSkin.setBounds(430,410,200,150);
+        krakenSkin.setText("5. Kraken Skin: 5000 G");
+        buttonInitializerShopB(krakenSkin);
+
+        JButton pirateHat = new JButton();
+        pirateHat.setBounds(430,570,200,150);
+        pirateHat.setText("6. Pirate Hat: 100 G");
+        accessoryButton(pirateHat);
+
+        JButton woodenPeg = new JButton();
+        woodenPeg.setBounds(650,250,200,150);
+        woodenPeg.setText("7. Wooden Peg: 100 G");
+        accessoryButton(woodenPeg);
+
+        JButton parrot = new JButton();
+        parrot.setBounds(650,410,200,150);
+        parrot.setText("8. Parrot: 500 G");
+        accessoryButton(parrot);
+
+        JButton eyePatch = new JButton();
+        eyePatch.setBounds(650,570,200,150);
+        eyePatch.setText("9. Eye Patch: 100 G");
+        accessoryButton(eyePatch);
+
+        JButton exitB = new JButton();
+        exitB.setBounds(50,50,100,100);
+        exitB.setText("Exit Shop");
+        exitB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.remove(shopB);
+                frame.add(sea);
+                frame.setVisible(true);
+            }
+        });
+
+        shopA.add(merchant);
+        shopA.add(balanceA);
+        shopA.add(welcomeA);
+        shopA.add(ironHook);
+        shopA.add(nextPage);
+        shopA.add(katana);
+        shopA.add(railBlade);
+        shopA.add(cryptBlade);
+        shopA.add(shatteredKatana);
+        shopA.add(bloodtideTrident);
+        shopA.add(stormsEye);
+        shopA.add(shovel);
+        shopA.add(exitA);
+
+        shopB.add(balanceB);
+        shopB.add(welcomeB);
+        shopB.add(lifeCrystal);
+        shopB.add(ironArmor);
+        shopB.add(pirateCoat);
+        shopB.add(sharkSkin);
+        shopB.add(krakenSkin);
+        shopB.add(pirateHat);
+        shopB.add(woodenPeg);
+        shopB.add(parrot);
+        shopB.add(eyePatch);
+        shopB.add(exitB);
+        shopB.add(prevPage);
     }
     private void listenerInitializer() {
         frame.addKeyListener(new KeyAdapter() {
@@ -230,20 +359,52 @@ public class GridGUI {
         });
     }
 
-    private void buttonInitializer(JButton button) {
+    private void buttonInitializerShopA(JButton button) {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(attributes.buy(Integer.parseInt(button.getText().substring(0,1)) - 1)) {
+                if (attributes.buyWeapon(Integer.parseInt(button.getText().substring(0,1)) - 1)) {
                     System.out.println(attributes.toString());
                     button.setVisible(false);
-                    shop.remove(button);
-                    balance.setText("You have " + attributes.getGold() + " Gold");
+                    shopA.remove(button);
+                    balanceA.setText("You have " + attributes.getGold() + " Gold");
+                    balanceB.setText("You have " + attributes.getGold() + " Gold");
+                    System.out.println(attributes.toString());
                 }
             }
         } );
     }
-    public static int makeGrid(JPanel gui, int X) {
+    private void buttonInitializerShopB(JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (attributes.buyArmor(Integer.parseInt(button.getText().substring(0,1)) - 1)) {
+                    System.out.println(attributes.toString());
+                    button.setVisible(false);
+                    shopB.remove(button);
+                    balanceA.setText("You have " + attributes.getGold() + " Gold");
+                    balanceB.setText("You have " + attributes.getGold() + " Gold");
+                    System.out.println(attributes.toString());
+                }
+            }
+        } );
+    }
+    private void accessoryButton(JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (attributes.buyAccessory(Integer.parseInt(button.getText().substring(0,1)) - 1)) {
+                    System.out.println(attributes.toString());
+                    button.setVisible(false);
+                    shopB.remove(button);
+                    balanceA.setText("You have " + attributes.getGold() + " Gold");
+                    balanceB.setText("You have " + attributes.getGold() + " Gold");
+                    attributes.toString();
+                }
+            }
+        });
+    }
+    private static int makeGrid(JPanel gui, int X) {
         JPanel line = new JPanel();
         line.setBackground(Color.LIGHT_GRAY);
         line.setBounds(X, 0, 5, 1000);
@@ -253,7 +414,7 @@ public class GridGUI {
         } return makeGrid(gui, X + 50);
     }
 
-    public static int finishGrid(JPanel gui, int Y) {
+    private static int finishGrid(JPanel gui, int Y) {
         JPanel line = new JPanel();
         line.setBackground(Color.LIGHT_GRAY);
         line.setBounds(0, Y, 1000, 5);
