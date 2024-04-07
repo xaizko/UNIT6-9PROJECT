@@ -6,11 +6,9 @@ import java.awt.event.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 public class GridGUI {
     // frame
     private JFrame frame;
-    // sea and attributes
     private JPanel sea;
     private JLabel player;
     private JLabel coin;
@@ -25,11 +23,8 @@ public class GridGUI {
     private JLabel captain6;
     private JLabel captain7;
     private JLabel gameTheory;
-    // mob fight
     private JPanel mobFight;
-    // boss fight and attributes
     private JPanel bossFight;
-    // shop and attributes
     private JPanel shopA;
     private JPanel shopB;
     private JLabel merchant;
@@ -41,12 +36,11 @@ public class GridGUI {
     private JPanel finalBossFight;
     private JLabel win;
     private AudioFile mainTheme;
-    private final Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
-    private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
-    private final Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
-    private final Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist", 1000, 105,4);
-    private final Boss theBaptist = new Boss("_", "The Baptist - Disciple of Miller", 5000,110,5);
-    private boolean gameOver;
+    private final Boss ethiron = new Boss("Ethiron - The Eye of Calamity", 3000, 50,1);
+    private final Boss cthyllus = new Boss("Cthyllus - The Veiled Devourer", 2000, 65,2);
+    private final Boss daveyJones = new Boss("Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
+    private final Boss matPat =  new Boss("Mathew Patrick - The Game Theorist", 1000, 105,4);
+    private final Boss theBaptist = new Boss( "The Baptist - Disciple of Miller", 3500,110,5);
     public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
         player = new JLabel(new ImageIcon("src/ImagePirate.png"));
         coin = new JLabel(new ImageIcon("src/ImageShop.png"));
@@ -70,7 +64,6 @@ public class GridGUI {
         shopB = new JPanel();
         finalBossFight = new JPanel();
         attributes = new Player("Traveler");
-        gameOver = false;
         listenerInitializer();
         initializeShop();
         initializeSea();
@@ -83,7 +76,7 @@ public class GridGUI {
         frame.add(sea);
         frame.setVisible(true);
         boolean endGame = false;
-        while (!gameOver) {
+        while (true) {
             Thread.sleep(0);
             if (attributes.finalBoss() && !endGame) {
                 endGame = true;
@@ -251,7 +244,7 @@ public class GridGUI {
         frame.setVisible(true);
     }
     private void fightMob() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        Monster monster = new Monster("_", "Pirate Captain",50, 30);
+        Monster monster = new Monster("Pirate Captain",50, 30);
         frame.setVisible(false);
         player.setLocation(450,450);
         frame.remove(sea);
@@ -737,7 +730,6 @@ public class GridGUI {
                 frame.setVisible(true);
             }
         });
-
         shopA.add(merchant);
         shopA.add(balanceA);
         shopA.add(welcomeA);

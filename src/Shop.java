@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class Shop extends Space {
+public class Shop {
     public static final Item KATANA = new Item("Katana", 50, null, 100, 2);
     public static final Item RAILBLADE = new Item("Railblade",400 , null, 3000, 3);
     public static final Item CRYPT_BLADE = new Item("Crypt Blade",1000 , null, 10000, 4);
@@ -27,7 +27,7 @@ public class Shop extends Space {
             STORMSEYE, SHOVEL};
     private Item[] catalogB = {LIFE_CRYSTAL, IRON_ARMOR, PIRATE_COAT, SHARK_SKIN, KRAKEN_SKIN, PIRATE_HAT, WOODEN_PEG, PARROT, EYE_PATCH};
     public Shop() {
-        super("\uD83D\uDED2");
+
     }
 
     public void menu() {

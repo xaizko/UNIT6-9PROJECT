@@ -5,8 +5,8 @@ import java.io.IOException;
 public class Boss extends Monster {
     private int type;
     AudioFile audioPlayer;
-    public Boss(String symbol, String name, int health, int atk,int type){
-        super(symbol,name,health,atk);
+    public Boss(String name, int health, int atk,int type){
+        super(name,health,atk);
         this.type = type;
     }
     public void encounterBoss() throws UnsupportedAudioFileException, LineUnavailableException, IOException {

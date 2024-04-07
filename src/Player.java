@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Player extends Space {
+public class Player {
     private String name;
     private int health;
     private int heal;
@@ -20,7 +20,6 @@ public class Player extends Space {
     private static boolean MatPatDefeated = false;
     private boolean[] bossesDefeated;
     public Player(String name) {
-        super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
         weapon = new Item("Base Sword", 10, null, 10, 0);
@@ -232,13 +231,6 @@ public class Player extends Space {
     public boolean finalBoss() {
         return getMatPatDefeated() && getDaveyDefeated() && getCthyllusDefeated() && getEthiornDefeated();
     }
-//    public void accessShop() {
-//        shop.menu();
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("what do you wanna buy?");
-//        buy(shop.getCatalog()[scan.nextInt()]);
-//    }
-
     public boolean buy(Item item) {
         if (gold > item.getCost()) {
             gold -= item.getCost();

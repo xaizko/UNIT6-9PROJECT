@@ -1,5 +1,4 @@
 public class Item {
-    private int idx;
     private String name;
     private Integer atk;
     private Integer increasedHealth;
@@ -9,7 +8,6 @@ public class Item {
         this.atk = atk;
         this.increasedHealth = increasedHealth;
         this.cost = cost;
-        this.idx = idx;
     }
 
     public int getAtk() {
