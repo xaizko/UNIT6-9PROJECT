@@ -16,7 +16,7 @@ public class Player extends Space {
     private boolean won;
     private static boolean EthironDefeated = false;
     private static boolean CthyllusDefeated = false;
-    private static boolean DavyDefeated = false;
+    private static boolean DaveyDefeated = false;
     private static boolean MatPatDefeated = false;
     private boolean[] bossesDefeated;
     public Player(String name) {
@@ -36,7 +36,7 @@ public class Player extends Space {
         bossesDefeated = new boolean[4];
         bossesDefeated[0] = EthironDefeated;
         bossesDefeated[1] = CthyllusDefeated;
-        bossesDefeated[2] = DavyDefeated;
+        bossesDefeated[2] = DaveyDefeated;
         bossesDefeated[3] = MatPatDefeated;
     }
 
@@ -193,7 +193,7 @@ public class Player extends Space {
         } else if (type == 2) {
             CthyllusDefeated = true;
         } else if (type == 3) {
-            DavyDefeated = true;
+            DaveyDefeated = true;
         } else {
             MatPatDefeated = true;
         }
@@ -201,14 +201,38 @@ public class Player extends Space {
     public void bossSlayed(int type) {
         bossesDefeated[type - 1] = true;
         if (type == 1) {
+            EthironDefeated = true;
             weapon = Shop.CRYPT_BLADE;
         } else if (type == 2) {
+            CthyllusDefeated = true;
             armor = Shop.KRAKEN_SKIN;
+        } else if (type == 3) {
+            DaveyDefeated = true;
         } else if (type == 4) {
+            MatPatDefeated = true;
             heal = 100;
         }
     }
 
+    public boolean getEthiornDefeated() {
+        return EthironDefeated;
+    }
+
+    public boolean getCthyllusDefeated() {
+        return CthyllusDefeated;
+    }
+
+    public boolean getDaveyDefeated() {
+        return DaveyDefeated;
+    }
+
+    public boolean getMatPatDefeated() {
+        return MatPatDefeated;
+    }
+
+    public boolean finalBoss() {
+        return getMatPatDefeated() && getDaveyDefeated() && getCthyllusDefeated() && getEthiornDefeated();
+    }
 //    public void accessShop() {
 //        shop.menu();
 //        Scanner scan = new Scanner(System.in);
@@ -266,6 +290,8 @@ public class Player extends Space {
     public int getGold() {
         return gold;
     }
+
+
 
     @Override
     public String toString() {

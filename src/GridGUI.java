@@ -65,6 +65,9 @@ public class GridGUI {
         frame.setVisible(true);
         while (!gameOver) {
             Thread.sleep(0);
+            if (attributes.finalBoss()) {
+                System.exit(0);
+            }
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
                 mainTheme.pause();
                 mainTheme = new AudioFile("shopkeeper'sTangle.wav");
@@ -75,19 +78,19 @@ public class GridGUI {
                 frame.add(shopA);
                 frame.setVisible(true);
             }
-            if (player.getX() == skeleton.getX() && player.getY() == skeleton.getY()) {
+            if (!attributes.getEthiornDefeated() && player.getX() == skeleton.getX() && player.getY() == skeleton.getY()) {
                 mainTheme.pause();
                 fightBoss(ethiron, new JLabel(new ImageIcon("src/ImageEthiron.png")), Color.BLUE);
             }
-            if (player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
+            if (!attributes.getCthyllusDefeated() && player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
                 mainTheme.pause();
                 fightBoss(cthyllus, new JLabel(new ImageIcon("src/ImageCthulhu(Cthyllus).png")), Color.DARK_GRAY);
             }
-            if (player.getX() == ghost.getX() && player.getY() == ghost.getY()) {
+            if (!attributes.getDaveyDefeated() && player.getX() == ghost.getX() && player.getY() == ghost.getY()) {
                 mainTheme.pause();
                 fightBoss(daveyJones, new JLabel(new ImageIcon("src/ImageDaveyJones.png")), Color.MAGENTA);
             }
-            if (player.getX() == gameTheory.getX() && player.getY() == gameTheory.getY()) {
+            if (!attributes.getMatPatDefeated() && player.getX() == gameTheory.getX() && player.getY() == gameTheory.getY()) {
                 mainTheme.pause();
                 fightBoss(matPat, new JLabel(new ImageIcon("src/ImageMatPat.png")), Color.GREEN);
             }
@@ -140,15 +143,19 @@ public class GridGUI {
                     System.out.println("YOU WIN, " + boss.getName() + " is defeated");
                     if (boss.getType() == 1) {
                         System.out.println("Ethiron sees promise in you and replenishes your health and gives you the CRYPT BLADE");
+                        sea.remove(skeleton);
                         attributes.bossSlayed(1);
                     } else if (boss.getType() == 2) {
                         System.out.println("You ravage Cthyllus's corpse and take the KRAKEN SKIN. You are healed to full");
+                        sea.remove(octopus);
                         attributes.bossSlayed(2);
-                    } else if (boss.getHealth() == 3) {
+                    } else if (boss.getType() == 3) {
                         System.out.println("You absorb Davey Jones' soul and you are healed to full");
+                        sea.remove(ghost);
                         attributes.bossSlayed(3);
                     } else if (boss.getType() == 4) {
                         System.out.println("You have caused Mathew to retire. He gives you the GAMER JUICE (Heal now heals 100 Health), You are healed to full");
+                        sea.remove(gameTheory);
                         attributes.bossSlayed(4);
                     }
                     boss.pause();
