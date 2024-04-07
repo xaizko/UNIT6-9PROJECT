@@ -41,5 +41,4 @@ public class Boss extends Monster {
     public int getType(){
         return type;
     }
-
 }
