@@ -42,7 +42,7 @@ public class GridGUI {
         coin = new JLabel(new ImageIcon("src/ImageShop.png"));
         merchant = new JLabel(new ImageIcon("src/ImageMerchant.png"));
         skeleton = new JLabel(new ImageIcon("src/ImageSkeleton.png"));
-        octopus = new JLabel();
+        octopus = new JLabel(new ImageIcon("src/ImageOctopus.png"));
         ghost = new JLabel(new ImageIcon("src/ImageGhost.png"));
         gameTheory = new JLabel(new ImageIcon("src/ImageGameTheory.png"));
         frame = new JFrame("Pirate Cove");
@@ -81,7 +81,7 @@ public class GridGUI {
             }
             if (player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
                 mainTheme.pause();
-                fightBoss(cthyllus, new JLabel(new ImageIcon("src/ImageCthulhu(Cthyllus).png")), Color.WHITE);
+                fightBoss(cthyllus, new JLabel(new ImageIcon("src/ImageCthulhu(Cthyllus).png")), Color.DARK_GRAY);
             }
             if (player.getX() == ghost.getX() && player.getY() == ghost.getY()) {
                 mainTheme.pause();
@@ -120,6 +120,7 @@ public class GridGUI {
 
         ghost.setBounds(950,500,50,50);
 
+        octopus.setBounds(500,950,50,50);
         makeGrid(sea, 0);
 
         sea.add(player);
@@ -127,6 +128,7 @@ public class GridGUI {
         sea.add(skeleton);
         sea.add(gameTheory);
         sea.add(ghost);
+        sea.add(octopus);
     }
 
     private void initializeShop() {
