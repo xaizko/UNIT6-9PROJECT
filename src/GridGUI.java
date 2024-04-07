@@ -17,6 +17,7 @@ public class GridGUI {
     private JLabel skeleton;
     private JLabel octopus;
     private JLabel ghost;
+    private JLabel captain;
     private JLabel gameTheory;
     // mob fight
     private JPanel mobFight;
@@ -45,6 +46,7 @@ public class GridGUI {
         octopus = new JLabel(new ImageIcon("src/ImageOctopus.png"));
         ghost = new JLabel(new ImageIcon("src/ImageGhost.png"));
         gameTheory = new JLabel(new ImageIcon("src/ImageGameTheory.png"));
+        captain = new JLabel(new ImageIcon("src/ImageMobMap.png"));
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         sea = new JPanel();
@@ -68,13 +70,19 @@ public class GridGUI {
             if (attributes.finalBoss()) {
                 System.exit(0);
             }
+            if (player.getX() == captain.getX() && player.getY() == captain.getY()) {
+                fightMob();
+            }
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
                 mainTheme.pause();
                 mainTheme = new AudioFile("shopkeeper'sTangle.wav");
                 mainTheme.playSound();
+                balanceA.setText("You have " + attributes.getGold() + " Gold");
+                balanceB.setText("You have " + attributes.getGold() + " Gold");
                 player.setLocation(450,450);
                 frame.setVisible(false);
                 frame.remove(sea);
+                frame.remove(mobFight);
                 frame.add(shopA);
                 frame.setVisible(true);
             }
@@ -96,8 +104,131 @@ public class GridGUI {
             }
         }
     }
+    private void fightMob() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Monster monster = new Monster("_", "Pirate Captain",500, 25);        mainTheme = new AudioFile("mainTheme.wav");
+        mainTheme.playSound();
+        frame.setVisible(false);
+        player.setLocation(450,450);
+        frame.remove(sea);
+        mobFight = new JPanel();
+        mobFight.setLayout(null);
+        mobFight.setBackground(Color.WHITE);
+        mobFight.setSize(1000,1000);
+        mobFight.setBackground(Color.YELLOW);
+
+        JLabel mob = new JLabel(new ImageIcon("src/ImageMob.png"));
+        mob.setBounds(500,200,600,400);
+        mobFight.add(mob);
+
+        JTextPane playerHealth = new JTextPane();
+        playerHealth.setText("Health Remaining: " + attributes.getHealth());
+        playerHealth.setBounds(50,450,150,20);
+        playerHealth.setBackground(Color.LIGHT_GRAY);
+
+        JTextPane bossHealth = new JTextPane();
+        bossHealth.setText("Health Remaining " +  monster.getHealth());
+        bossHealth.setBounds(700,700,150,20);
+        bossHealth.setBackground(Color.LIGHT_GRAY);
+
+        JButton atk = new JButton();
+        atk.setBounds(100,100,200,200);
+        atk.setText("Attack");
+        atk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int damageDone = attributes.attack();
+                int damageTaken = monster.attack();
+                monster.takeDamage(damageDone);
+                System.out.println(monster.getName() + " has taken " + damageDone + " points of damage");
+                System.out.println("You have taken " + damageTaken + " points of damage\n");
+                if (attributes.getHealth() <= 0) {
+                    playerHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU LOSE");
+                    System.out.println("You don't belong in the domain of the gods");
+                    System.exit(0);
+                } else {
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                }
+                if (monster.getHealth() <= 0) {
+                    bossHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU WIN, " + monster.getName() + " is defeated");
+                    int gold = (int) (Math.random() * 401) + 100;
+                    System.out.println("You are given " + gold + " gold");
+                    attributes.setGold(gold);
+                    mainTheme.pause();
+                    try {
+                        mainTheme = new AudioFile("mainTheme.wav");
+                        mainTheme.playSound();
+                    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    attributes.setHealth();
+                    frame.setVisible(false);
+                    frame.remove(mobFight);
+                    frame.add(sea);
+                    frame.setVisible(true);
+                } else {
+                    attributes.takeDamage(damageTaken);
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                    bossHealth.setText("Health Remaining: " + monster.getHealth());
+                }
+            }
+        });
+
+        JButton heal = new JButton();
+        heal.setBounds(250,350,200,200);
+        heal.setText("Use Heal Pot");
+        heal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("You drink a potion and gain " + attributes.usePotion() + " health");
+                int damageTaken = monster.attack();
+                attributes.takeDamage(damageTaken);
+                System.out.println("You have taken " + damageTaken + " points of damage");
+                if (attributes.getHealth() <= 0) {
+                    playerHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU LOSE");
+                    System.out.println("You don't belong in the domain of the gods");
+                    System.exit(0);
+                } else {
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                }
+            }
+        });
+
+        JButton run = new JButton();
+        run.setBounds(100,600,200,200);
+        run.setText("Run");
+        run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                mainTheme.pause();
+                try {
+                    mainTheme = new AudioFile("mainTheme.wav");
+                    mainTheme.playSound();
+                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+                player.setLocation(450,450);
+                frame.setVisible(false);
+                frame.remove(mobFight);
+                frame.add(sea);
+                frame.setVisible(true);
+            }
+        });
+
+        mobFight.add(atk);
+        mobFight.add(heal);
+        mobFight.add(run);
+        mobFight.add(bossHealth);
+        mobFight.add(playerHealth);
+
+        frame.add(mobFight);
+        frame.setVisible(true);
+    }
     private void fightBoss(Boss boss, JLabel img, Color color) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         boss.encounterBoss();
+        frame.remove(mobFight);
         frame.setVisible(false);
         player.setLocation(450,450);
         frame.remove(sea);
@@ -158,6 +289,9 @@ public class GridGUI {
                         sea.remove(gameTheory);
                         attributes.bossSlayed(4);
                     }
+                    int gold = (int) (Math.random() * 1001) + 1000;
+                    System.out.println("You are given " + gold + " gold");
+                    attributes.setGold(gold);
                     boss.pause();
                     try {
                         mainTheme = new AudioFile("mainTheme.wav");
@@ -238,6 +372,8 @@ public class GridGUI {
 
         coin.setBounds(500,500,50,50);
 
+        captain.setBounds(250,250,50,50);
+
         skeleton.setBounds(500,0,50,50);
 
         gameTheory.setBounds(0,500,50,50);
@@ -249,6 +385,8 @@ public class GridGUI {
 
         sea.add(player);
         sea.add(coin);
+        sea.add(captain);
+
         sea.add(skeleton);
         sea.add(gameTheory);
         sea.add(ghost);

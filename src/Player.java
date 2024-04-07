@@ -290,9 +290,9 @@ public class Player extends Space {
     public int getGold() {
         return gold;
     }
-
-
-
+    public void setGold(int goldWon) {
+        gold += goldWon;
+    }
     @Override
     public String toString() {
         String str = "\n\nInventory\n";
