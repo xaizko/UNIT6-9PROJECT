@@ -3,14 +3,14 @@
 import java.util.Scanner;
 
 public class Shop extends Space {
-    public static final Item KATANA = new Item("Katana", 25, null, 100, 2);
-    public static final Item RAILBLADE = new Item("Railblade",200 , null, 3000, 3);
-    public static final Item CRYPT_BLADE = new Item("Crypt Blade",500 , null, 10000, 4);
-    public static final Item SHATTERED_KATANA = new Item("Shattered Katana", 70, null, 500, 5);
-    public static final Item BlOODTIDE_TRIDENT = new Item("Bloodtide Trident",120 , null, 1000, 6);
-    public static final Item STORMSEYE = new Item("Stormseye", 300, null, 5000, 7);
-    public static final Item SHOVEL = new Item("Shovel", 15, null, 50, 8);
-    public static final Item IRON_HOOK = new Item("Iron Hook", 25, null, 200, 15);
+    public static final Item KATANA = new Item("Katana", 50, null, 100, 2);
+    public static final Item RAILBLADE = new Item("Railblade",400 , null, 3000, 3);
+    public static final Item CRYPT_BLADE = new Item("Crypt Blade",1000 , null, 10000, 4);
+    public static final Item SHATTERED_KATANA = new Item("Shattered Katana", 140, null, 500, 5);
+    public static final Item BlOODTIDE_TRIDENT = new Item("Bloodtide Trident",240 , null, 1000, 6);
+    public static final Item STORMSEYE = new Item("Stormseye", 600, null, 5000, 7);
+    public static final Item SHOVEL = new Item("Shovel", 30, null, 50, 8);
+    public static final Item IRON_HOOK = new Item("Iron Hook", 50, null, 200, 15);
 
     //ARMOR + ACCESSORIES TO HEALTH INCREASE
     public static final Item LIFE_CRYSTAL = new Item("Life Crystal", null, 50, 20, 1);

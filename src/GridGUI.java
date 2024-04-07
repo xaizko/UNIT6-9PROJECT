@@ -38,11 +38,14 @@ public class GridGUI {
     private JTextPane welcomeA;
     private JTextPane welcomeB;
     private Player attributes;
+    private JPanel finalBossFight;
+    private JLabel win;
     private AudioFile mainTheme;
     private final Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
     private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private final Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
-    private final Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist ", 1000, 105,4);
+    private final Boss matPat =  new Boss("☠\uFE0F","Mathew Patrick - The Game Theorist", 1000, 105,4);
+    private final Boss theBaptist = new Boss("_", "The Baptist - Disciple of Miller", 5000,110,5);
     private boolean gameOver;
     public GridGUI() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
         player = new JLabel(new ImageIcon("src/ImagePirate.png"));
@@ -59,11 +62,13 @@ public class GridGUI {
         captain5 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
         captain6 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
         captain7 = new JLabel(new ImageIcon("src/ImageMobMap.png"));
+        bossFight = new JPanel();
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         sea = new JPanel();
         shopA = new JPanel();
         shopB = new JPanel();
+        finalBossFight = new JPanel();
         attributes = new Player("Traveler");
         gameOver = false;
         listenerInitializer();
@@ -77,10 +82,12 @@ public class GridGUI {
         mainTheme.playSound();
         frame.add(sea);
         frame.setVisible(true);
+        boolean endGame = false;
         while (!gameOver) {
             Thread.sleep(0);
-            if (attributes.finalBoss()) {
-                System.exit(0);
+            if (attributes.finalBoss() && !endGame) {
+                endGame = true;
+                fightFinalBoss();
             }
             if (player.getX() == captain1.getX() && player.getY() == captain1.getY()) {
                 fightMob();
@@ -103,7 +110,6 @@ public class GridGUI {
             if (player.getX() == captain7.getX() && player.getY() == captain7.getY()) {
                 fightMob();
             }
-
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
                 mainTheme.pause();
                 mainTheme = new AudioFile("shopkeeper'sTangle.wav");
@@ -121,6 +127,7 @@ public class GridGUI {
                 mainTheme.pause();
                 fightBoss(ethiron, new JLabel(new ImageIcon("src/ImageEthiron.png")), Color.BLUE);
             }
+
             if (!attributes.getCthyllusDefeated() && player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
                 mainTheme.pause();
                 fightBoss(cthyllus, new JLabel(new ImageIcon("src/ImageCthulhu(Cthyllus).png")), Color.DARK_GRAY);
@@ -135,9 +142,116 @@ public class GridGUI {
             }
         }
     }
+
+    private void fightFinalBoss() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
+        mainTheme.pause();
+        AudioFile finalAudio = new AudioFile("theCleansing.wav");
+        frame.setVisible(false);
+        frame.remove(bossFight);
+        frame.remove(sea);
+        finalBossFight.setLayout(null);
+        finalBossFight.setSize(1000,1000);
+        finalBossFight.setBackground(Color.BLACK);
+        win = new JLabel(new ImageIcon("src/ImageYouWin.png"));
+        win.setBounds(500,500,500,500);
+        finalBossFight.add(win);
+        frame.add(finalBossFight);
+        frame.setVisible(true);
+        Thread.sleep(2000);
+        for (int i = 0; i < 100; i++) {
+            frame.setVisible(false);
+            Thread.sleep(10);
+            frame.setVisible(true);
+        }
+        finalAudio.playSound();
+        Thread.sleep(1500);
+        frame.remove(finalBossFight);
+        finalBossFight.remove(win);
+        finalBossFight.setBackground(Color.WHITE);
+
+        for (int i = 0; i < 3; i++) {
+            frame.setVisible(false);
+            Thread.sleep(800);
+            frame.setVisible(true);
+        }
+
+        JLabel baptist = new JLabel(new ImageIcon("src/ImageTheBaptist.png"));
+        baptist.setBounds(500,50,500,600);
+        frame.setVisible(false);
+        finalBossFight.add(baptist);
+
+        JTextPane playerHealth = new JTextPane();
+        playerHealth.setBounds(300,350,170,60);
+        playerHealth.setText("Health Remaining: " + attributes.getHealth());
+        finalBossFight.add(playerHealth);
+
+        JTextPane bossHealth = new JTextPane();
+        bossHealth.setBounds(700,700,170,60);
+        bossHealth.setText("Health Remaining: " + theBaptist.getHealth());
+        finalBossFight.add(bossHealth);
+        JButton atk = new JButton();
+
+        atk.setBounds(100,100,200,200);
+        atk.setText("Attack");
+        atk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int damageDone = attributes.attack();
+
+                int damageTaken = theBaptist.attack();
+                theBaptist.takeDamage(damageDone);
+                System.out.println(theBaptist.getName() + " has taken " + damageDone + " points of damage");
+                if (attributes.getHealth() <= 0) {
+                    playerHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU LOSE");
+                    System.out.println("You are now reborn");
+                    System.exit(0);
+                } else {
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                }
+                if (theBaptist.getHealth() <= 0) {
+                    bossHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU WIN, " + theBaptist.getName() + " is defeated");
+                    mainTheme.pause();
+                    System.exit(0);
+                } else {
+                    attributes.takeDamage(damageTaken);
+                    System.out.println("You have taken " + damageTaken + " points of damage\n");
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                    bossHealth.setText("Health Remaining: " + theBaptist.getHealth());
+                }
+            }
+        });
+
+        JButton heal = new JButton();
+        heal.setBounds(100,400,200,200);
+        heal.setText("Use Heal Pot");
+        heal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("You drink a potion and gain " + attributes.usePotion() + " health");
+                int damageTaken = theBaptist.attack();
+                attributes.takeDamage(damageTaken);
+                System.out.println("You have taken " + damageTaken + " points of damage");
+                if (attributes.getHealth() <= 0) {
+                    playerHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU LOSE");
+                    System.out.println("You have been cleansed");
+                    System.exit(0);
+                } else {
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                }
+            }
+        });
+
+        finalBossFight.add(atk);
+        finalBossFight.add(heal);
+
+        frame.add(finalBossFight);
+        frame.setVisible(true);
+    }
     private void fightMob() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        Monster monster = new Monster("_", "Pirate Captain",500, 25);        mainTheme = new AudioFile("mainTheme.wav");
-        mainTheme.playSound();
+        Monster monster = new Monster("_", "Pirate Captain",50, 30);
         frame.setVisible(false);
         player.setLocation(450,450);
         frame.remove(sea);
@@ -153,12 +267,12 @@ public class GridGUI {
 
         JTextPane playerHealth = new JTextPane();
         playerHealth.setText("Health Remaining: " + attributes.getHealth());
-        playerHealth.setBounds(50,450,150,20);
+        playerHealth.setBounds(50,450,150,60);
         playerHealth.setBackground(Color.LIGHT_GRAY);
 
         JTextPane bossHealth = new JTextPane();
         bossHealth.setText("Health Remaining " +  monster.getHealth());
-        bossHealth.setBounds(700,700,150,20);
+        bossHealth.setBounds(700,700,150,60);
         bossHealth.setBackground(Color.LIGHT_GRAY);
 
         JButton atk = new JButton();
@@ -171,11 +285,10 @@ public class GridGUI {
                 int damageTaken = monster.attack();
                 monster.takeDamage(damageDone);
                 System.out.println(monster.getName() + " has taken " + damageDone + " points of damage");
-                System.out.println("You have taken " + damageTaken + " points of damage\n");
                 if (attributes.getHealth() <= 0) {
                     playerHealth.setText("Health Remaining: " + 0);
                     System.out.println("YOU LOSE");
-                    System.out.println("You don't belong in the domain of the gods");
+                    System.out.println("You don't belong on our turf kid");
                     System.exit(0);
                 } else {
                     playerHealth.setText("Health Remaining: " + attributes.getHealth());
@@ -186,13 +299,6 @@ public class GridGUI {
                     int gold = (int) (Math.random() * 401) + 100;
                     System.out.println("You are given " + gold + " gold");
                     attributes.setGold(gold);
-                    mainTheme.pause();
-                    try {
-                        mainTheme = new AudioFile("mainTheme.wav");
-                        mainTheme.playSound();
-                    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-                        throw new RuntimeException(e);
-                    }
                     attributes.setHealth();
                     frame.setVisible(false);
                     frame.remove(mobFight);
@@ -200,6 +306,7 @@ public class GridGUI {
                     frame.setVisible(true);
                 } else {
                     attributes.takeDamage(damageTaken);
+                    System.out.println("You have taken " + damageTaken + " points of damage\n");
                     playerHealth.setText("Health Remaining: " + attributes.getHealth());
                     bossHealth.setText("Health Remaining: " + monster.getHealth());
                 }
@@ -226,7 +333,6 @@ public class GridGUI {
                 }
             }
         });
-
         JButton run = new JButton();
         run.setBounds(100,600,200,200);
         run.setText("Run");
@@ -273,12 +379,12 @@ public class GridGUI {
 
         JTextPane playerHealth = new JTextPane();
         playerHealth.setText("Health Remaining: " + attributes.getHealth());
-        playerHealth.setBounds(50,450,150,20);
+        playerHealth.setBounds(50,450,150,60);
         playerHealth.setBackground(Color.LIGHT_GRAY);
 
         JTextPane bossHealth = new JTextPane();
         bossHealth.setText("Health Remaining " + boss.getHealth());
-        bossHealth.setBounds(700,700,150,20);
+        bossHealth.setBounds(700,700,150,60);
         bossHealth.setBackground(Color.LIGHT_GRAY);
 
         JButton atk = new JButton();
@@ -291,7 +397,6 @@ public class GridGUI {
                 int damageTaken = boss.attack();
                 boss.takeDamage(damageDone);
                 System.out.println(boss.getName() + " has taken " + damageDone + " points of damage");
-                System.out.println("You have taken " + damageTaken + " points of damage\n");
                 if (attributes.getHealth() <= 0) {
                     playerHealth.setText("Health Remaining: " + 0);
                     System.out.println("YOU LOSE");
@@ -324,11 +429,13 @@ public class GridGUI {
                     System.out.println("You are given " + gold + " gold");
                     attributes.setGold(gold);
                     boss.pause();
-                    try {
-                        mainTheme = new AudioFile("mainTheme.wav");
-                        mainTheme.playSound();
-                    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
-                        throw new RuntimeException(e);
+                    if (!attributes.finalBoss()) {
+                        try {
+                            mainTheme = new AudioFile("mainTheme.wav");
+                            mainTheme.playSound();
+                        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     attributes.setHealth();
                     frame.setVisible(false);
@@ -336,6 +443,7 @@ public class GridGUI {
                     frame.add(sea);
                     frame.setVisible(true);
                 } else {
+                    System.out.println("You have taken " + damageTaken + " points of damage\n");
                     attributes.takeDamage(damageTaken);
                     playerHealth.setText("Health Remaining: " + attributes.getHealth());
                     bossHealth.setText("Health Remaining: " + boss.getHealth());
@@ -363,7 +471,6 @@ public class GridGUI {
                 }
             }
         });
-
         JButton run = new JButton();
         run.setBounds(100,600,200,200);
         run.setText("Run");
@@ -404,7 +511,7 @@ public class GridGUI {
         coin.setBounds(500,500,50,50);
 
         captain1.setBounds(250,250,50,50);
-        captain2.setBounds(350,450,50,50);
+        captain2.setBounds(250,700,50,50);
         captain3.setBounds(100,500,50,50);
         captain4.setBounds(200,100,50,50);
         captain5.setBounds(800,200,50,50);
@@ -673,6 +780,11 @@ public class GridGUI {
                         player.setLocation(player.getX() + 50, player.getY());
                     } else if (keyCode == KeyEvent.VK_I) {
                         System.out.println(attributes.toString());
+                    } else if (keyCode == KeyEvent.VK_K) {
+                        attributes.bossSlayed(1);
+                        attributes.bossSlayed(2);
+                        attributes.bossSlayed(3);
+                        attributes.bossSlayed(4);
                     }
                     if (player.getX() < 0) {
                         player.setLocation(950, player.getY());

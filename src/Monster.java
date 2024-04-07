@@ -24,7 +24,8 @@ public class Monster extends Space {
         return health;
     }
 
-    public int getAtk() {
+    public int getAtk()
+    {
         return atk;
     }
 

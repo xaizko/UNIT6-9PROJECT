@@ -23,7 +23,7 @@ public class Player extends Space {
         super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
-        weapon = new Item("Base Sword", 5000, null, 10, 0);
+        weapon = new Item("Base Sword", 10, null, 10, 0);
         armor = new Item("Leather Armor", null, 50, 200, 9);
         scan = new Scanner(System.in);
         inFight = false;
@@ -31,7 +31,7 @@ public class Player extends Space {
         accessoryHealth = 0;
         heal = 50;
         shop = new Shop();
-        gold = 5000;
+        gold = 1000;
         won = false;
         bossesDefeated = new boolean[4];
         bossesDefeated[0] = EthironDefeated;
@@ -199,18 +199,17 @@ public class Player extends Space {
         }
     }
     public void bossSlayed(int type) {
-        bossesDefeated[type - 1] = true;
         if (type == 1) {
             EthironDefeated = true;
             weapon = Shop.CRYPT_BLADE;
         } else if (type == 2) {
             CthyllusDefeated = true;
-            armor = Shop.KRAKEN_SKIN;
+            health += 500;
         } else if (type == 3) {
             DaveyDefeated = true;
         } else if (type == 4) {
             MatPatDefeated = true;
-            heal = 100;
+            heal = 200;
         }
     }
 
