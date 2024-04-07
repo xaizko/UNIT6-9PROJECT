@@ -369,7 +369,6 @@ public class GridGUI {
                     shopA.remove(button);
                     balanceA.setText("You have " + attributes.getGold() + " Gold");
                     balanceB.setText("You have " + attributes.getGold() + " Gold");
-                    System.out.println(attributes.toString());
                 }
             }
         } );
@@ -384,7 +383,6 @@ public class GridGUI {
                     shopB.remove(button);
                     balanceA.setText("You have " + attributes.getGold() + " Gold");
                     balanceB.setText("You have " + attributes.getGold() + " Gold");
-                    System.out.println(attributes.toString());
                 }
             }
         } );
