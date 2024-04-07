@@ -41,14 +41,16 @@ public class Grid {
         }
 
         //random encounters
-
+        for(int i = 0; i < 15; i++){
+            board[(int) (Math.random() *19)][(int) (Math.random() * 19)] = MobEncounters.generateMonster();
+        }
         //boss spawns
         board[10][10] = player;
         board[0][10]  = ethiron;
         board[10][0] = cthyllus;
         board[10][20] = daveyJones;
         board[20][10] = matPat;
-        board[10][20] = new Shop();
+        board[10][11] = new Shop();
     }
 
     private void printBoard() {
@@ -67,7 +69,7 @@ public class Grid {
         if(!player.getInFight()){
             mainTheme.playSound();
         }
-        if(player.getInFight()){
+        else{
             mainTheme.pause();
         }
         // PLACE HOLDER CONDITION (maybe, we can just set it to true when goal is met)
@@ -100,8 +102,9 @@ public class Grid {
 //                if (board[newRow][newCol] instanceof Shop) {
 //                    player.accessShop();
 //                }
-                if(board[newRow][newCol] instanceof Boss){
-                    Boss currentBoss = (Boss) board[newRow][newCol];
+                /*
+                if(board[newRow][newCol] instanceof Boss currentBoss  && !((Boss) board[newRow][newCol]).isDead()){
+                    mainTheme.pause();
                     currentBoss.encounterBoss();
                     player.fightMenu(currentBoss);
                     if (!player.getInFight()) {
@@ -110,8 +113,22 @@ public class Grid {
                     }
                 }
 
+                 */
                 if (board[newRow][newCol] instanceof Monster) {
+                    if(board[newRow][newCol] instanceof Boss currentBoss  && !((Boss) board[newRow][newCol]).isDead()) {
+                        mainTheme.pause();
+                        currentBoss.encounterBoss();
+                        player.fightMenu(currentBoss);
+                        if (!player.getInFight()) {
+                            currentBoss.pause();
+                            mainTheme.resume();
+                        }
+                        if(currentBoss.isDead()){
+                            board[newRow][newCol] = new Space("\uD83D\uDFE6");
+                        }
+                    }
                     player.fightMonster((Monster) board[newRow][newCol]);
+
                 }
                 Space temp = board[newRow][newCol];
                 board[newRow][newCol] = board[currentRow][currentCol];
@@ -120,7 +137,7 @@ public class Grid {
                 currentRow = newRow;
                 currentCol = newCol;
 
-            } else {
+            }else {
                 System.out.println("Out of bounds. Try again.");
             }
 

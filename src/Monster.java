@@ -1,4 +1,9 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Monster extends Space {
+    AudioFile audioPlayer;
     private String name;
     private int health;
     private int atk;
@@ -37,5 +42,9 @@ public class Monster extends Space {
             dead = true;
         }
         return dead;
+    }
+    public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        audioPlayer = new AudioFile("MobTheme.wav");
+        audioPlayer.playSound();
     }
 }
