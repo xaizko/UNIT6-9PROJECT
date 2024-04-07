@@ -189,7 +189,6 @@ public class GridGUI {
         JButton shovel = new JButton();
         shovel.setBounds(700,600,200,150);
         shovel.setText("8. Shovel: 50 G");
-        shovel.setText("1. Life Crystal: 50 G");
         buttonInitializerShopA(shovel);
 
         JButton exitA = new JButton();
