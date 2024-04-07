@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Player extends Space {
     private String name;
     private int health;
+    private int heal;
+    private int accessoryHealth;
     private Item weapon;
     private Item armor;
     private ArrayList<Item> inventory;
@@ -12,24 +14,30 @@ public class Player extends Space {
     private Scanner scan;
     private boolean inFight;
     private boolean won;
-    private boolean EthironDefeated;
-    private boolean CthyllusDefeated;
-    private boolean MatPatDefeated;
-    private boolean DavyDefeated;
-
+    private static boolean EthironDefeated = false;
+    private static boolean CthyllusDefeated = false;
+    private static boolean DavyDefeated = false;
+    private static boolean MatPatDefeated = false;
+    private boolean[] bossesDefeated;
     public Player(String name) {
         super("😀"); // symbol is emoji
         this.name = name;
         inventory = new ArrayList<>();
-        inventory.add(new Item("Base Sword", 5000, null, 10, 0));
         weapon = new Item("Base Sword", 5000, null, 10, 0);
         armor = new Item("Leather Armor", null, 50, 200, 9);
         scan = new Scanner(System.in);
         inFight = false;
-        health = 100;
+        health = 100 + armor.getIncreasedHealth();
+        accessoryHealth = 0;
+        heal = 50;
         shop = new Shop();
         gold = 5000;
         won = false;
+        bossesDefeated = new boolean[4];
+        bossesDefeated[0] = EthironDefeated;
+        bossesDefeated[1] = CthyllusDefeated;
+        bossesDefeated[2] = DavyDefeated;
+        bossesDefeated[3] = MatPatDefeated;
     }
 
     public boolean getInFight() {
@@ -48,6 +56,18 @@ public class Player extends Space {
         double damage = weapon.getAtk();
         damage *= (Math.random() + 0.5);
         return (int) damage;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+    }
+
+    public int usePotion() {
+        health += 50;
+        return heal;
+    }
+    public void setHealth() {
+        health = 100 + armor.getIncreasedHealth() + accessoryHealth;
     }
 
     public void fightMonster(Monster monster) {
@@ -178,6 +198,16 @@ public class Player extends Space {
             MatPatDefeated = true;
         }
     }
+    public void bossSlayed(int type) {
+        bossesDefeated[type - 1] = true;
+        if (type == 1) {
+            weapon = Shop.CRYPT_BLADE;
+        } else if (type == 2) {
+            armor = Shop.KRAKEN_SKIN;
+        } else if (type == 4) {
+            heal = 100;
+        }
+    }
 
 //    public void accessShop() {
 //        shop.menu();
@@ -214,6 +244,7 @@ public class Player extends Space {
         if (gold >= shop.getCatalogB()[item].getCost()) {
             gold -= shop.getCatalogB()[item].getCost();
             armor = shop.getCatalogB()[item];
+            health = 100 + armor.getIncreasedHealth() + accessoryHealth;
             System.out.println("Successfully bought: " + shop.getCatalogB()[item].getName());
             return true;
         }
@@ -224,9 +255,8 @@ public class Player extends Space {
     public boolean buyAccessory(int item) {
         if (gold >= shop.getCatalogB()[item].getCost()) {
             gold -= shop.getCatalogB()[item].getCost();
-            health += shop.getCatalogB()[item].getIncreasedHealth();
+            accessoryHealth += shop.getCatalogB()[item].getIncreasedHealth();
             System.out.println("Successfully bought, total health increased");
-
             return true;
         }
         System.out.println("Insufficient Funds");
@@ -241,7 +271,7 @@ public class Player extends Space {
     public String toString() {
         String str = "\n\nInventory\n";
         str += "Weapon: " + weapon.getName() + ", Attack: " + weapon.getAtk();
-        str += "\nArmor: " + armor.getName() + ", Health: " + (health + armor.getIncreasedHealth()) + "\n";
+        str += "\nArmor: " + armor.getName() + ", Health: " + (health) + "\n";
         return str;
     }
 }

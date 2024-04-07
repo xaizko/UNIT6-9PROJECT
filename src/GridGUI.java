@@ -77,7 +77,7 @@ public class GridGUI {
             }
             if (player.getX() == skeleton.getX() && player.getY() == skeleton.getY()) {
                 mainTheme.pause();
-                fightBoss(ethiron, new JLabel(new ImageIcon("src/ImageSans.png")), Color.BLUE);
+                fightBoss(ethiron, new JLabel(new ImageIcon("src/ImageEthiron.png")), Color.BLUE);
             }
             if (player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
                 mainTheme.pause();
@@ -122,7 +122,52 @@ public class GridGUI {
         atk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                int damageDone = attributes.attack();
+                int damageTaken = boss.attack();
+                boss.takeDamage(damageDone);
+                System.out.println(boss.getName() + " has taken " + damageDone + " points of damage");
+                System.out.println("You have taken " + damageTaken + " points of damage\n");
+                if (attributes.getHealth() <= 0) {
+                    playerHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU LOSE");
+                    System.out.println("You don't belong in the domain of the gods");
+                    System.exit(0);
+                } else {
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                }
+                if (boss.getHealth() <= 0) {
+                    bossHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU WIN, " + boss.getName() + " is defeated");
+                    if (boss.getType() == 1) {
+                        System.out.println("Ethiron sees promise in you and replenishes your health and gives you the CRYPT BLADE");
+                        attributes.bossSlayed(1);
+                    } else if (boss.getType() == 2) {
+                        System.out.println("You ravage Cthyllus's corpse and take the KRAKEN SKIN. You are healed to full");
+                        attributes.bossSlayed(2);
+                    } else if (boss.getHealth() == 3) {
+                        System.out.println("You absorb Davey Jones' soul and you are healed to full");
+                        attributes.bossSlayed(3);
+                    } else if (boss.getType() == 4) {
+                        System.out.println("You have caused Mathew to retire. He gives you the GAMER JUICE (Heal now heals 100 Health), You are healed to full");
+                        attributes.bossSlayed(4);
+                    }
+                    boss.pause();
+                    try {
+                        mainTheme = new AudioFile("mainTheme.wav");
+                        mainTheme.playSound();
+                    } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    attributes.setHealth();
+                    frame.setVisible(false);
+                    frame.remove(bossFight);
+                    frame.add(sea);
+                    frame.setVisible(true);
+                } else {
+                    attributes.takeDamage(damageTaken);
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                    bossHealth.setText("Health Remaining: " + boss.getHealth());
+                }
             }
         });
 
@@ -132,7 +177,18 @@ public class GridGUI {
         heal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                System.out.println("You drink a potion and gain " + attributes.usePotion() + " health");
+                int damageTaken = boss.attack();
+                attributes.takeDamage(damageTaken);
+                System.out.println("You have taken " + damageTaken + " points of damage");
+                if (attributes.getHealth() <= 0) {
+                    playerHealth.setText("Health Remaining: " + 0);
+                    System.out.println("YOU LOSE");
+                    System.out.println("You don't belong in the domain of the gods");
+                    System.exit(0);
+                } else {
+                    playerHealth.setText("Health Remaining: " + attributes.getHealth());
+                }
             }
         });
 
@@ -142,7 +198,18 @@ public class GridGUI {
         run.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                mainTheme.pause();
+                try {
+                    mainTheme = new AudioFile("mainTheme.wav");
+                    mainTheme.playSound();
+                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+                player.setLocation(450,450);
+                frame.setVisible(false);
+                frame.remove(bossFight);
+                frame.add(sea);
+                frame.setVisible(true);
             }
         });
 
@@ -363,6 +430,12 @@ public class GridGUI {
         exitB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    mainTheme = new AudioFile("mainTheme.wav");
+                    mainTheme.playSound();
+                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException f) {
+                    throw new RuntimeException(f);
+                }
                 frame.setVisible(false);
                 frame.remove(shopB);
                 frame.add(sea);
