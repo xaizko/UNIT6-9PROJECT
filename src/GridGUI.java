@@ -30,9 +30,8 @@ public class GridGUI {
     private JTextPane balanceB;
     private JTextPane welcomeA;
     private JTextPane welcomeB;
-    private ArrayList<Item> inventory;
     private Player attributes;
-    private AudioFile mainTheme = new AudioFile("Main Theme Pirates of the Caribbean.wav");
+    private AudioFile mainTheme;
     private final Boss ethiron = new Boss("\uD83D\uDC7B","Ethiron - The Eye of Calamity", 3000, 50,1);
     private final Boss cthyllus = new Boss("\uD83E\uDD9C","Cthyllus - The Veiled Devourer", 2000, 65,2);
     private final Boss daveyJones = new Boss("\uD83D\uDC19","Davey Jones - The Swashbuckling Tempest", 1500, 80,3);
@@ -44,8 +43,8 @@ public class GridGUI {
         merchant = new JLabel(new ImageIcon("src/ImageMerchant.png"));
         skeleton = new JLabel(new ImageIcon("src/ImageSkeleton.png"));
         octopus = new JLabel();
-        ghost = new JLabel();
-        gameTheory = new JLabel();
+        ghost = new JLabel(new ImageIcon("src/ImageGhost.png"));
+        gameTheory = new JLabel(new ImageIcon("src/ImageGameTheory.png"));
         frame = new JFrame("Pirate Cove");
         mobFight = new JPanel();
         sea = new JPanel();
@@ -60,13 +59,16 @@ public class GridGUI {
         play();
     }
     private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
-//        AudioPlayer mainTheme = new AudioPlayer("Main Theme Pirates of the Caribbean.wav");
-//        mainTheme.playSound();
+        mainTheme = new AudioFile("mainTheme.wav");
+        mainTheme.playSound();
         frame.add(sea);
         frame.setVisible(true);
         while (!gameOver) {
             Thread.sleep(0);
             if (player.getX() == coin.getX() && player.getY() == coin.getY()) {
+                mainTheme.pause();
+                mainTheme = new AudioFile("shopkeeper'sTangle.wav");
+                mainTheme.playSound();
                 player.setLocation(450,450);
                 frame.setVisible(false);
                 frame.remove(sea);
@@ -74,15 +76,19 @@ public class GridGUI {
                 frame.setVisible(true);
             }
             if (player.getX() == skeleton.getX() && player.getY() == skeleton.getY()) {
+                mainTheme.pause();
                 fightBoss(ethiron, new JLabel(new ImageIcon("src/ImageSans.png")), Color.BLUE);
             }
             if (player.getX() == octopus.getX() && player.getY() == octopus.getY()) {
+                mainTheme.pause();
                 fightBoss(cthyllus, new JLabel(new ImageIcon("src/ImageCthulhu(Cthyllus).png")), Color.WHITE);
             }
             if (player.getX() == ghost.getX() && player.getY() == ghost.getY()) {
+                mainTheme.pause();
                 fightBoss(daveyJones, new JLabel(new ImageIcon("src/ImageDaveyJones.png")), Color.MAGENTA);
             }
             if (player.getX() == gameTheory.getX() && player.getY() == gameTheory.getY()) {
+                mainTheme.pause();
                 fightBoss(matPat, new JLabel(new ImageIcon("src/ImageMatPat.png")), Color.GREEN);
             }
         }
@@ -108,13 +114,19 @@ public class GridGUI {
 
         coin.setBounds(500,500,50,50);
 
-        skeleton.setBounds(450,0,50,50);
+        skeleton.setBounds(500,0,50,50);
+
+        gameTheory.setBounds(0,500,50,50);
+
+        ghost.setBounds(950,500,50,50);
 
         makeGrid(sea, 0);
 
         sea.add(player);
         sea.add(coin);
         sea.add(skeleton);
+        sea.add(gameTheory);
+        sea.add(ghost);
     }
 
     private void initializeShop() {
@@ -197,6 +209,13 @@ public class GridGUI {
         exitA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainTheme.pause();
+                try {
+                    mainTheme = new AudioFile("mainTheme.wav");
+                    mainTheme.playSound();
+                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 frame.setVisible(false);
                 frame.remove(shopA);
                 frame.add(sea);

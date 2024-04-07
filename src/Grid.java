@@ -63,7 +63,7 @@ public class Grid {
     private void play() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int currentRow = 10;
         int currentCol = 10;
-        AudioFile mainTheme = new AudioFile("Main Theme Pirates of the Caribbean.wav");
+        AudioFile mainTheme = new AudioFile("mainTheme.wav");
         if(!player.getInFight()){
             mainTheme.playSound();
         }
