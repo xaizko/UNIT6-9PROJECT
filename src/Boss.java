@@ -16,6 +16,8 @@ public class Boss extends Monster {
             pause();
         }
     }
+
+    @Override
     public void playMusic() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(type == 1){
             audioPlayer = new AudioFile("ethiron'sCalling.wav");
