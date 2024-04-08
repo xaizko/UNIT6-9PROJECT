@@ -151,10 +151,11 @@ public class GridGUI {
         frame.add(finalBossFight);
         frame.setVisible(true);
         Thread.sleep(2000);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             frame.setVisible(false);
-            Thread.sleep(10);
+            Thread.sleep(200);
             frame.setVisible(true);
+            Thread.sleep(100);
         }
         finalAudio.playSound();
         Thread.sleep(1500);
